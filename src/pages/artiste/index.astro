@@ -1,83 +1,39 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { artistesSorted, scenesName } from '../../../backend/backend.mjs';
 
-// Images des artistes
-import djRouge from '../../assets/img/dj_rouge.avif';
-import djBleu from '../../assets/img/dj_bleu.avif';
-import djFlamme from '../../assets/img/dj_flamme.avif';
-import djNoirBlanc from '../../assets/img/dj_noir_blanc.avif';
-import djCacher from '../../assets/img/dj_cacher.avif';
-import djDeDos from '../../assets/img/dj_de_dos.avif';
-import djRouge2 from '../../assets/img/dj_rouge_2.avif';
-import djBleu2 from '../../assets/img/dj_bleu_2.avif';
+// Recuperer les artistes depuis PocketBase
+let artistes = [];
+let scenes = [];
 
-// Liste des artistes (donnees simples)
-const artistes = [
-	{
-		nom: "Charlotte de Witte",
-		genre: "Techno",
-		image: djRouge.src,
-		jour: "Vendredi 18 Juillet",
-		scene: "Main Stage",
-		horaire: "23:00 - 01:00"
-	},
-	{
-		nom: "Ben Bohmer",
-		genre: "Melodic House",
-		image: djBleu.src,
-		jour: "Vendredi 18 Juillet",
-		scene: "Reflets Stage",
-		horaire: "21:00 - 23:00"
-	},
-	{
-		nom: "Anfisa Letyago",
-		genre: "Techno",
-		image: djFlamme.src,
-		jour: "Vendredi 18 Juillet",
-		scene: "Drones Stage",
-		horaire: "01:00 - 03:00"
-	},
-	{
-		nom: "Boris Brejcha",
-		genre: "High-Tech Minimal",
-		image: djNoirBlanc.src,
-		jour: "Samedi 19 Juillet",
-		scene: "Main Stage",
-		horaire: "23:00 - 01:00"
-	},
-	{
-		nom: "Nina Kraviz",
-		genre: "Techno",
-		image: djCacher.src,
-		jour: "Samedi 19 Juillet",
-		scene: "Reflets Stage",
-		horaire: "21:00 - 23:00"
-	},
-	{
-		nom: "Amelie Lens",
-		genre: "Techno",
-		image: djDeDos.src,
-		jour: "Samedi 19 Juillet",
-		scene: "Drones Stage",
-		horaire: "01:00 - 03:00"
-	},
-	{
-		nom: "Tale Of Us",
-		genre: "Melodic Techno",
-		image: djRouge2.src,
-		jour: "Dimanche 20 Juillet",
-		scene: "Main Stage",
-		horaire: "22:00 - 00:00"
-	},
-	{
-		nom: "Peggy Gou",
-		genre: "House",
-		image: djBleu2.src,
-		jour: "Dimanche 20 Juillet",
-		scene: "Reflets Stage",
-		horaire: "20:00 - 22:00"
-	}
-];
+try {
+	artistes = await artistesSorted();
+	scenes = await scenesName();
+} catch (error) {
+	console.error("Erreur lors de la recuperation des donnees:", error);
+}
+
+// Fonction pour obtenir le nom de la scene
+function getSceneName(sceneId) {
+	const scene = scenes.find(s => s.id === sceneId);
+	return scene ? scene.nom : "Scene inconnue";
+}
+
+// Fonction pour formater la date
+function formatDate(dateString) {
+	const date = new Date(dateString);
+	const options = { weekday: 'long', day: 'numeric', month: 'long' };
+	return date.toLocaleDateString('fr-FR', options);
+}
+
+// Fonction pour formater l'heure
+function formatTime(dateString) {
+	const date = new Date(dateString);
+	return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+}
+
+// URL de base PocketBase pour les images
+const pbUrl = "http://127.0.0.1:8090";
 ---
 
 <Layout title="Artistes - Lumimix">
@@ -95,35 +51,48 @@ const artistes = [
 		<div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 			
 			{artistes.map((artiste) => (
-				<!-- CARTE ARTISTE -->
-				<div class="bg-violet-foncer/30 rounded-2xl overflow-hidden">
+				<!-- CARTE ARTISTE (cliquable) -->
+				<a href={`/artiste/${artiste.id}`} class="bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform block">
 					
 					<!-- Image -->
 					<div class="relative">
-						<img 
-							src={artiste.image} 
-							alt={artiste.nom} 
-							class="w-full h-48 object-cover"
-						/>
+						{artiste.photo_principale ? (
+							<img 
+								src={`${pbUrl}/api/files/${artiste.collectionId}/${artiste.id}/${artiste.photo_principale}`}
+								alt={artiste.nom} 
+								class="w-full h-48 object-cover"
+							/>
+						) : (
+							<div class="w-full h-48 bg-violet-foncer flex items-center justify-center">
+								<span class="text-gris">Pas d'image</span>
+							</div>
+						)}
 						<!-- Badge genre -->
 						<span class="absolute top-3 left-3 bg-violet text-white text-xs px-3 py-1 rounded-full">
-							{artiste.genre}
+							{artiste.genre_musical}
 						</span>
 					</div>
 					
 					<!-- Infos -->
 					<div class="p-4">
 						<h3 class="text-white text-xl font-bold mb-2">{artiste.nom}</h3>
-						<p class="text-gris text-sm mb-1">{artiste.jour}</p>
-						<p class="text-violet text-sm font-medium">{artiste.scene}</p>
-						<p class="text-gris text-sm">{artiste.horaire}</p>
+						<p class="text-gris text-sm mb-1">{formatDate(artiste.date_representation)}</p>
+						<p class="text-violet text-sm font-medium">{getSceneName(artiste.scene)}</p>
+						<p class="text-gris text-sm">{formatTime(artiste.date_representation)}</p>
 					</div>
 					
-				</div>
+				</a>
 			))}
 
 		</div>
 	</section>
+
+	<!-- MESSAGE SI PAS D'ARTISTES -->
+	{artistes.length === 0 && (
+		<section class="pb-16 text-center">
+			<p class="text-gris text-lg">Aucun artiste trouve. Verifiez que PocketBase est lance.</p>
+		</section>
+	)}
 
 	<!-- BOUTON RETOUR -->
 	<section class="pb-16 text-center">

@@ -1,38 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-// Images des scenes
-import mainStage from '../assets/img/main_stage.avif';
-import refletStage from '../assets/img/reflet_stage.avif';
-import dronesStage from '../assets/img/drones_stage.avif';
+import { scenesName, allartistebysceneId } from '../../backend/backend.mjs';
 
 // Icone
 import iconUserMulti from '../assets/icons/user_multi.svg';
 
-// Liste des scenes
-const scenes = [
-	{
-		nom: "Main Stage",
-		image: mainStage.src,
-		description: "La scene principale du festival, equipee d'un systeme son de pointe et d'une scenographie lumineuse spectaculaire avec drones synchronises et lasers.",
-		capacite: "15 000",
-		caracteristiques: ["Systeme L-Acoustics K1", "Ecrans LED 4K", "120 lasers RGB", "Show de drones"]
-	},
-	{
-		nom: "Reflets Stage",
-		image: refletStage.src,
-		description: "Installee au bord de l'eau, cette scene offre une experience unique avec des jeux de lumieres qui se refletent sur le lac de Malsaucy, creant une atmosphere magique.",
-		capacite: "8 000",
-		caracteristiques: ["Effets aquatiques", "Mapping video", "Reflets lumineux", "Ambiance intimiste"]
-	},
-	{
-		nom: "Drones Stage",
-		image: dronesStage.src,
-		description: "Une scene experimentale ou technologie et musique se rencontrent. Des centaines de drones lumineux creent des choregraphies aeriennes synchronisees avec la musique.",
-		capacite: "5 000",
-		caracteristiques: ["300 drones LED", "Effets 3D", "Innovation artistique", "Experience immersive"]
-	}
-];
+// Recuperer les scenes depuis PocketBase
+let scenes = [];
+
+try {
+	scenes = await scenesName();
+} catch (error) {
+	console.error("Erreur lors de la recuperation des scenes:", error);
+}
+
+// URL de base PocketBase pour les images
+const pbUrl = "http://127.0.0.1:8090";
 ---
 
 <Layout title="Les Scenes - Lumimix">
@@ -41,7 +24,7 @@ const scenes = [
 	<section class="pt-32 pb-16 px-4 text-center">
 		<h1 class="text-white text-5xl font-bold mb-4">Les Scenes</h1>
 		<p class="text-gris text-lg max-w-2xl mx-auto">
-			3 scenes uniques pour une experience immersive totale
+			{scenes.length} scenes uniques pour une experience immersive totale
 		</p>
 	</section>
 
@@ -54,11 +37,17 @@ const scenes = [
 				<div class="bg-violet-foncer/30 rounded-2xl overflow-hidden">
 					
 					<!-- Image -->
-					<img 
-						src={scene.image} 
-						alt={scene.nom} 
-						class="w-full h-64 md:h-80 object-cover"
-					/>
+					{scene.image ? (
+						<img 
+							src={`${pbUrl}/api/files/${scene.collectionId}/${scene.id}/${scene.image}`}
+							alt={scene.nom} 
+							class="w-full h-64 md:h-80 object-cover"
+						/>
+					) : (
+						<div class="w-full h-64 md:h-80 bg-violet-foncer flex items-center justify-center">
+							<span class="text-gris text-xl">Pas d'image</span>
+						</div>
+					)}
 					
 					<!-- Contenu -->
 					<div class="p-6 md:p-8">
@@ -66,27 +55,22 @@ const scenes = [
 						<!-- Titre et capacite -->
 						<div class="flex flex-wrap items-center justify-between gap-4 mb-4">
 							<h2 class="text-white text-3xl font-bold">{scene.nom}</h2>
-							<div class="flex items-center gap-2 text-violet">
-								<img src={iconUserMulti.src} alt="" class="w-5 h-5"/>
-								<span class="font-medium">{scene.capacite} personnes</span>
-							</div>
+							{scene.capacite && (
+								<div class="flex items-center gap-2 text-violet">
+									<img src={iconUserMulti.src} alt="" class="w-5 h-5"/>
+									<span class="font-medium">{scene.capacite} personnes</span>
+								</div>
+							)}
 						</div>
 						
 						<!-- Description -->
-						<p class="text-gris mb-6">{scene.description}</p>
-						
-						<!-- Caracteristiques -->
-						<div class="flex flex-wrap gap-2 mb-6">
-							{scene.caracteristiques.map((carac) => (
-								<span class="bg-dark-blue text-white text-sm px-4 py-2 rounded-full">
-									{carac}
-								</span>
-							))}
-						</div>
+						{scene.description && (
+							<p class="text-gris mb-6">{scene.description}</p>
+						)}
 						
 						<!-- Bouton voir les artistes -->
 						<a 
-							href="/artiste" 
+							href={`/artiste`}
 							class="inline-block bg-violet text-white px-6 py-2 rounded-full font-bold hover:opacity-80"
 						>
 							Voir les artistes
@@ -99,30 +83,12 @@ const scenes = [
 		</div>
 	</section>
 
-	<!-- TABLEAU RECAPITULATIF -->
-	<section class="pb-16 px-4">
-		<div class="max-w-5xl mx-auto">
-			<h2 class="text-white text-3xl font-bold text-center mb-8">Caracteristiques des Scenes</h2>
-			
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-				{scenes.map((scene) => (
-					<div class="bg-violet-foncer/30 p-6 rounded-2xl text-center">
-						<h3 class="text-violet text-xl font-bold mb-4">{scene.nom}</h3>
-						<p class="text-white text-2xl font-bold mb-2">{scene.capacite}</p>
-						<p class="text-gris text-sm mb-4">personnes</p>
-						<ul class="text-left text-gris text-sm space-y-2">
-							{scene.caracteristiques.map((carac) => (
-								<li class="flex items-center gap-2">
-									<span class="w-2 h-2 bg-violet rounded-full"></span>
-									{carac}
-								</li>
-							))}
-						</ul>
-					</div>
-				))}
-			</div>
-		</div>
-	</section>
+	<!-- MESSAGE SI PAS DE SCENES -->
+	{scenes.length === 0 && (
+		<section class="pb-16 text-center">
+			<p class="text-gris text-lg">Aucune scene trouvee. Verifiez que PocketBase est lance.</p>
+		</section>
+	)}
 
 	<!-- BOUTON RETOUR -->
 	<section class="pb-16 text-center">
