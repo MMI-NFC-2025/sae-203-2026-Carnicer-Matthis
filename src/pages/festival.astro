@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Images
+import heroImage from '../assets/img/hero_acceuil.avif';
+import sceneImage from '../assets/img/main_stage.avif';
+---
+
+<Layout title="Le Festival - Lumimix">
+	
+	<!-- HERO -->
+	<section class="relative h-[50vh] flex items-center justify-center -mt-24">
+		<img 
+			src={heroImage.src} 
+			alt="Festival Lumimix" 
+			class="absolute inset-0 w-full h-full object-cover"
+		/>
+		<div class="absolute inset-0 bg-black/60"></div>
+		<div class="relative z-10 text-center px-4">
+			<h1 class="text-white text-5xl md:text-6xl font-bold">Le Festival</h1>
+		</div>
+	</section>
+
+	<!-- PRESENTATION -->
+	<section class="py-16 px-4">
+		<div class="max-w-4xl mx-auto">
+			<h2 class="text-white text-3xl font-bold mb-8 text-center">Bienvenue a Lumimix</h2>
+			<p class="text-gris text-lg leading-relaxed mb-6">
+				Lumimix est un festival de musique electronique unique en son genre, qui se deroule chaque annee au bord du magnifique Lac de Malsaucy dans le Territoire de Belfort.
+			</p>
+			<p class="text-gris text-lg leading-relaxed mb-6">
+				Pendant 3 nuits exceptionnelles, les meilleurs DJs internationaux se produisent sur nos scenes pour vous offrir une experience musicale et visuelle inoubliable.
+			</p>
+			<p class="text-gris text-lg leading-relaxed">
+				Notre festival mise sur l'innovation avec des installations lumineuses spectaculaires, des drones synchronises et une ambiance nocturne immersive qui transforme chaque soiree en voyage sensoriel unique.
+			</p>
+		</div>
+	</section>
+
+	<!-- VALEURS -->
+	<section class="py-16 px-4 bg-violet-foncer/20">
+		<div class="max-w-5xl mx-auto">
+			<h2 class="text-white text-3xl font-bold mb-12 text-center">Nos Valeurs</h2>
+			
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div class="bg-dark-blue p-8 rounded-2xl text-center">
+					<h3 class="text-violet text-xl font-bold mb-4">Inclusion</h3>
+					<p class="text-gris">
+						Un festival ouvert a toutes et tous, ou chacun se sent accueilli, respecte et libre de vivre la fete.
+					</p>
+				</div>
+				
+				<div class="bg-dark-blue p-8 rounded-2xl text-center">
+					<h3 class="text-violet text-xl font-bold mb-4">Creativite</h3>
+					<p class="text-gris">
+						Un terrain d'expression ou l'imagination et l'innovation prennent vie avec des shows uniques.
+					</p>
+				</div>
+				
+				<div class="bg-dark-blue p-8 rounded-2xl text-center">
+					<h3 class="text-violet text-xl font-bold mb-4">Divertissement</h3>
+					<p class="text-gris">
+						Un moment de plaisir pur : energie, danse, emotions positives et deconnexion du quotidien.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- HISTOIRE -->
+	<section class="py-16 px-4">
+		<div class="max-w-4xl mx-auto">
+			<h2 class="text-white text-3xl font-bold mb-8 text-center">Notre Histoire</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+				<div>
+					<p class="text-gris text-lg leading-relaxed mb-6">
+						Ne en 2020, Lumimix est le fruit de la passion de jeunes organisateurs belfortains pour la musique electronique et les experiences immersives.
+					</p>
+					<p class="text-gris text-lg leading-relaxed">
+						Depuis sa creation, le festival n'a cesse de grandir, accueillant chaque annee plus de festivaliers venus decouvrir notre programmation electrisante.
+					</p>
+				</div>
+				<img 
+					src={sceneImage.src} 
+					alt="Scene Lumimix" 
+					class="rounded-2xl w-full h-64 object-cover"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="py-16 px-4 bg-violet-foncer/20">
+		<div class="max-w-3xl mx-auto text-center">
+			<h2 class="text-white text-3xl font-bold mb-6">Rejoignez l'aventure</h2>
+			<p class="text-gris mb-8">
+				Decouvrez notre programmation et reservez vos places pour l'edition 2025.
+			</p>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+				<a 
+					href="/programme" 
+					class="bg-violet text-white px-8 py-3 rounded-full font-bold hover:opacity-80"
+				>
+					Voir le programme
+				</a>
+				<a 
+					href="/artiste" 
+					class="border-2 border-violet text-white px-8 py-3 rounded-full font-bold hover:bg-violet"
+				>
+					Decouvrir les artistes
+				</a>
+			</div>
+		</div>
+	</section>
+
+</Layout>

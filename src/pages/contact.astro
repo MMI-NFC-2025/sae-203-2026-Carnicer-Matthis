@@ -1,0 +1,187 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Images
+import heroImage from '../assets/img/hero_acceuil.avif';
+
+// Icones reseaux sociaux
+import iconYt from "../assets/icons/youtube.svg";
+import iconX from "../assets/icons/x.svg";
+import iconInsta from "../assets/icons/instagram.svg";
+import iconFb from "../assets/icons/facebook.svg";
+---
+
+<Layout title="Contact - Lumimix">
+	
+	<!-- HERO -->
+	<section class="relative h-[40vh] flex items-center justify-center -mt-24">
+		<img 
+			src={heroImage.src} 
+			alt="Festival Lumimix" 
+			class="absolute inset-0 w-full h-full object-cover"
+		/>
+		<div class="absolute inset-0 bg-black/60"></div>
+		<div class="relative z-10 text-center px-4">
+			<h1 class="text-white text-5xl md:text-6xl font-bold">Contact</h1>
+		</div>
+	</section>
+
+	<!-- FORMULAIRE ET INFOS -->
+	<section class="py-16 px-4">
+		<div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+			
+			<!-- FORMULAIRE -->
+			<div>
+				<h2 class="text-white text-2xl font-bold mb-6">Envoyez-nous un message</h2>
+				<form class="flex flex-col gap-4">
+					<div>
+						<label for="nom" class="text-gris block mb-2">Nom</label>
+						<input 
+							type="text" 
+							id="nom" 
+							name="nom" 
+							class="w-full bg-dark-blue border border-violet-foncer rounded-lg px-4 py-3 text-white focus:border-violet focus:outline-none"
+							required
+						/>
+					</div>
+					
+					<div>
+						<label for="email" class="text-gris block mb-2">Email</label>
+						<input 
+							type="email" 
+							id="email" 
+							name="email" 
+							class="w-full bg-dark-blue border border-violet-foncer rounded-lg px-4 py-3 text-white focus:border-violet focus:outline-none"
+							required
+						/>
+					</div>
+					
+					<div>
+						<label for="sujet" class="text-gris block mb-2">Sujet</label>
+						<select 
+							id="sujet" 
+							name="sujet" 
+							class="w-full bg-dark-blue border border-violet-foncer rounded-lg px-4 py-3 text-white focus:border-violet focus:outline-none"
+						>
+							<option value="general">Question generale</option>
+							<option value="billetterie">Billetterie</option>
+							<option value="partenariat">Partenariat</option>
+							<option value="presse">Presse / Media</option>
+							<option value="autre">Autre</option>
+						</select>
+					</div>
+					
+					<div>
+						<label for="message" class="text-gris block mb-2">Message</label>
+						<textarea 
+							id="message" 
+							name="message" 
+							rows="5"
+							class="w-full bg-dark-blue border border-violet-foncer rounded-lg px-4 py-3 text-white focus:border-violet focus:outline-none resize-none"
+							required
+						></textarea>
+					</div>
+					
+					<button 
+						type="submit" 
+						class="bg-violet text-white px-8 py-3 rounded-full font-bold hover:opacity-80 mt-4"
+					>
+						Envoyer
+					</button>
+				</form>
+			</div>
+
+			<!-- INFOS CONTACT -->
+			<div>
+				<h2 class="text-white text-2xl font-bold mb-6">Informations</h2>
+				
+				<div class="bg-violet-foncer/30 p-6 rounded-2xl mb-6">
+					<h3 class="text-violet font-bold mb-2">Email</h3>
+					<p class="text-gris">contact@lumimix-festival.fr</p>
+				</div>
+				
+				<div class="bg-violet-foncer/30 p-6 rounded-2xl mb-6">
+					<h3 class="text-violet font-bold mb-2">Adresse</h3>
+					<p class="text-gris">
+						Lac de Malsaucy<br/>
+						90300 Sermamagny<br/>
+						Territoire de Belfort
+					</p>
+				</div>
+				
+				<div class="bg-violet-foncer/30 p-6 rounded-2xl mb-6">
+					<h3 class="text-violet font-bold mb-2">Horaires</h3>
+					<p class="text-gris">
+						Du lundi au vendredi<br/>
+						9h00 - 18h00
+					</p>
+				</div>
+
+				<!-- RESEAUX SOCIAUX -->
+				<h3 class="text-white text-xl font-bold mb-4 mt-8">Suivez-nous</h3>
+				<div class="flex gap-4">
+					<a 
+						href="https://www.youtube.com/" 
+						target="_blank"
+						class="bg-violet-foncer/30 p-3 rounded-full hover:bg-violet transition-colors"
+					>
+						<img src={iconYt.src} alt="YouTube" class="w-6 h-6"/>
+					</a>
+					<a 
+						href="https://x.com/" 
+						target="_blank"
+						class="bg-violet-foncer/30 p-3 rounded-full hover:bg-violet transition-colors"
+					>
+						<img src={iconX.src} alt="X" class="w-6 h-6"/>
+					</a>
+					<a 
+						href="https://www.instagram.com/" 
+						target="_blank"
+						class="bg-violet-foncer/30 p-3 rounded-full hover:bg-violet transition-colors"
+					>
+						<img src={iconInsta.src} alt="Instagram" class="w-6 h-6"/>
+					</a>
+					<a 
+						href="https://www.facebook.com/" 
+						target="_blank"
+						class="bg-violet-foncer/30 p-3 rounded-full hover:bg-violet transition-colors"
+					>
+						<img src={iconFb.src} alt="Facebook" class="w-6 h-6"/>
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<!-- FAQ -->
+	<section class="py-16 px-4 bg-violet-foncer/20">
+		<div class="max-w-3xl mx-auto">
+			<h2 class="text-white text-3xl font-bold mb-8 text-center">Questions frequentes</h2>
+			
+			<div class="flex flex-col gap-4">
+				<details class="bg-dark-blue p-6 rounded-2xl">
+					<summary class="text-white font-bold cursor-pointer">Comment puis-je acheter mes billets ?</summary>
+					<p class="text-gris mt-4">
+						Vous pouvez acheter vos billets directement sur notre page Billetterie ou aupres de nos partenaires de vente.
+					</p>
+				</details>
+				
+				<details class="bg-dark-blue p-6 rounded-2xl">
+					<summary class="text-white font-bold cursor-pointer">Y a-t-il un camping sur place ?</summary>
+					<p class="text-gris mt-4">
+						Oui, un espace camping est disponible pour les detenteurs de pass 3 jours. Plus d'infos sur la page Infos Pratiques.
+					</p>
+				</details>
+				
+				<details class="bg-dark-blue p-6 rounded-2xl">
+					<summary class="text-white font-bold cursor-pointer">Les billets sont-ils remboursables ?</summary>
+					<p class="text-gris mt-4">
+						Les billets ne sont pas remboursables sauf en cas d'annulation de l'evenement. Consultez nos CGV pour plus de details.
+					</p>
+				</details>
+			</div>
+		</div>
+	</section>
+
+</Layout>
