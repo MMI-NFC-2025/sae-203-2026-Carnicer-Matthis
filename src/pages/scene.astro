@@ -76,13 +76,21 @@ const scenes = [
 						<p class="text-gris mb-6">{scene.description}</p>
 						
 						<!-- Caracteristiques -->
-						<div class="flex flex-wrap gap-2">
+						<div class="flex flex-wrap gap-2 mb-6">
 							{scene.caracteristiques.map((carac) => (
 								<span class="bg-dark-blue text-white text-sm px-4 py-2 rounded-full">
 									{carac}
 								</span>
 							))}
 						</div>
+						
+						<!-- Bouton voir les artistes -->
+						<a 
+							href="/artiste" 
+							class="inline-block bg-violet text-white px-6 py-2 rounded-full font-bold hover:opacity-80"
+						>
+							Voir les artistes
+						</a>
 						
 					</div>
 				</div>
