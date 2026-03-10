@@ -1,1 +1,148 @@
-H
+---
+// Importation de tes icônes de réseaux sociaux et du logo
+import iconYt from "../assets/icons/youtube.svg";
+import iconX from "../assets/icons/x.svg";
+import iconInsta from "../assets/icons/instagram.svg";
+import iconFb from "../assets/icons/facebook.svg";
+import logoLumimix from "../assets/icons/logo_lumimix.svg";
+---
+
+<footer
+    class="bg-dark-blue text-white pt-16 pb-8 border-t border-violet-foncer/50 mt-20"
+>
+    <div
+        class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 items-start"
+    >
+        <div class="flex justify-center md:justify-start lg:mt-4">
+            <a
+                href="/"
+                aria-label="Retour à l'accueil"
+                class="hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_15px_rgba(194,122,255,0.2)]"
+            >
+                <img
+                    src={logoLumimix.src}
+                    alt="LumiMix Logo"
+                    class="w-32 lg:w-40 object-contain"
+                />
+            </a>
+        </div>
+
+        <section>
+            <h3 class="text-[1.5rem] font-bold uppercase tracking-wider mb-6">
+                Navigation
+            </h3>
+            <ul class="flex flex-col gap-4 font-semibold">
+                <li>
+                    <a
+                        href="/festival"
+                        class="text-gris hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300"
+                        >Le Festival</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="/programmation"
+                        class="text-gris hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300"
+                        >Programmation</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="/artiste"
+                        class="text-gris hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300"
+                        >Artistes</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="/scene"
+                        class="text-gris hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300"
+                        >Scènes</a
+                    >
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h3 class="text-[1.5rem] font-bold uppercase tracking-wider mb-6">
+                Informations
+            </h3>
+            <ul class="flex flex-col gap-4 font-semibold">
+                <li>
+                    <a
+                        href="/info-pratique"
+                        class="text-gris hover:text-white transition-colors duration-300"
+                        >Infos Pratiques</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="/contact"
+                        class="text-gris hover:text-white transition-colors duration-300"
+                        >Contact</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="/cgv"
+                        class="text-gris hover:text-white transition-colors duration-300"
+                        >CGV</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="/mentions-legales"
+                        class="text-gris hover:text-white transition-colors duration-300"
+                        >Mentions légales</a
+                    >
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h3 class="text-[1.5rem] font-bold uppercase tracking-wider mb-6">
+                Suivez-nous
+            </h3>
+            <div class="flex gap-6">
+                <a
+                    href="https://www.youtube.com/"
+                    aria-label="YouTube"
+                    target="_blank"
+                    class="hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+                >
+                    <img src={iconYt.src} alt="YouTube" class="w-8 h-8" />
+                </a>
+                <a
+                    href="https://x.com/?lang=fr"
+                    aria-label="X (Twitter)"
+                    target="_blank"
+                    class="hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+                >
+                    <img src={iconX.src} alt="X (Twitter)" class="w-8 h-8" />
+                </a>
+                <a
+                    href="https://www.instagram.com/"
+                    aria-label="Instagram"
+                    target="_blank"
+                    class="hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+                >
+                    <img src={iconInsta.src} alt="Instagram" class="w-8 h-8" />
+                </a>
+                <a
+                    href="https://www.facebook.com/?locale=fr_FR"
+                    aria-label="Facebook"
+                    target="_blank"
+                    class="hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+                >
+                    <img src={iconFb.src} alt="Facebook" class="w-8 h-8" />
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div
+        class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/10 text-center text-gris text-sm"
+    >
+        <p>© 2025 Lumimix Festival. Tous droits réservés.</p>
+    </div>
+</footer>

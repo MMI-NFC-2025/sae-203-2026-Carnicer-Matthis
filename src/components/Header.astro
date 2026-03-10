@@ -1,0 +1,126 @@
+---
+// Importation des images/icônes
+import logo from "../assets/icons/logo_lumimix.svg";
+import iconBurger from "../assets/icons/burgermenu.svg";
+import iconClose from "../assets/icons/Fermermenu.svg";
+
+// Définition de tes liens de navigation
+const navLinks = [
+    { name: "Accueil", url: "/" },
+    { name: "Festival", url: "/festival" },
+    { name: "Programmation", url: "/programmation" },
+    { name: "Billetterie", url: "/billetterie" },
+    { name: "Infos pratiques", url: "/info-pratique" },
+    { name: "Contact", url: "/contact" },
+];
+---
+
+<header
+    class="fixed w-full top-0 z-50 bg-dark-blue/90 backdrop-blur-md px-6 py-4 flex justify-between items-center transition-all duration-300"
+    id="main-header"
+>
+    <a href="/" class="z-50 relative">
+        <img src={logo.src} alt="LumiMix Logo" class="h-8 md:h-10" />
+    </a>
+
+    <button
+        id="burger-btn"
+        class="z-50 relative lg:hidden p-2 focus:outline-none cursor-pointer"
+    >
+        <img
+            src={iconBurger.src}
+            alt="Ouvrir le menu"
+            class="h-8 w-8 transition-opacity duration-200"
+            id="burger-icon"
+        />
+        <img
+            src={iconClose.src}
+            alt="Fermer le menu"
+            class="h-8 w-8 hidden transition-opacity duration-200"
+            id="close-icon"
+        />
+    </button>
+
+    <nav class="hidden lg:flex gap-8 items-center font-semibold text-lg">
+        {
+            navLinks.map((link) => (
+                <a
+                    href={link.url}
+                    class="text-white hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300"
+                >
+                    {link.name}
+                </a>
+            ))
+        }
+    </nav>
+
+    <div
+        id="mobile-menu"
+        class="fixed inset-0 bg-dark-blue flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-300 lg:hidden z-40"
+    >
+        <nav class="flex flex-col items-center gap-8 text-[2.5rem] font-bold">
+            {
+                navLinks.map((link) => (
+                    <a
+                        href={link.url}
+                        class="text-white hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300 transform translate-y-4 opacity-0 nav-item"
+                    >
+                        {link.name}
+                    </a>
+                ))
+            }
+        </nav>
+
+        <div
+            class="absolute bottom-12 flex gap-4 text-xl font-bold opacity-0 nav-item"
+        >
+            <a href="#" class="text-violet">FR</a>
+            <span class="text-gris">|</span>
+            <a href="#" class="text-white hover:text-violet transition-colors"
+                >EN</a
+            >
+        </div>
+    </div>
+</header>
+
+<script>
+    // Script d'interaction pour le menu mobile
+    const burgerBtn = document.getElementById("burger-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const burgerIcon = document.getElementById("burger-icon");
+    const closeIcon = document.getElementById("close-icon");
+    const header = document.getElementById("main-header");
+    const navItems = document.querySelectorAll(".nav-item");
+
+    burgerBtn?.addEventListener("click", () => {
+        const isClosed = mobileMenu?.classList.contains("opacity-0");
+
+        if (isClosed) {
+            // OUVRE LE MENU
+            mobileMenu?.classList.remove("opacity-0", "pointer-events-none");
+            burgerIcon?.classList.add("hidden");
+            closeIcon?.classList.remove("hidden");
+            header?.classList.remove("backdrop-blur-md");
+            document.body.style.overflow = "hidden"; // Coupe le scroll
+
+            // Animation d'apparition des liens
+            navItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.remove("translate-y-4", "opacity-0");
+                }, 100 * index);
+            });
+        } else {
+            // FERME LE MENU
+            mobileMenu?.classList.add("opacity-0", "pointer-events-none");
+            burgerIcon?.classList.remove("hidden");
+            closeIcon?.classList.add("hidden");
+            header?.classList.add("backdrop-blur-md");
+            document.body.style.overflow = ""; // Remet le scroll
+
+            // Réinitialise l'animation des liens
+            navItems.forEach((item) => {
+                item.classList.add("translate-y-4", "opacity-0");
+            });
+        }
+    });
+</script>
