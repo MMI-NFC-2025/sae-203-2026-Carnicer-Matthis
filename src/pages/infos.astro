@@ -1,0 +1,200 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Icones
+import iconLocate from '../assets/icons/locate.svg';
+import iconCars from '../assets/icons/cars.svg';
+import iconTrain from '../assets/icons/train.svg';
+import iconImuble from '../assets/icons/imuble.svg';
+import iconCalendrier from '../assets/icons/calendrier.svg';
+import iconInfo from '../assets/icons/info.svg';
+---
+
+<Layout title="Infos Pratiques - Lumimix">
+	
+	<!-- HEADER DE PAGE -->
+	<section class="pt-32 pb-16 px-4 text-center">
+		<h1 class="text-white text-5xl font-bold mb-4">Infos Pratiques</h1>
+		<p class="text-gris text-lg max-w-2xl mx-auto">
+			Tout ce qu'il faut savoir pour preparer votre venue au festival
+		</p>
+	</section>
+
+	<!-- ACCES AU FESTIVAL -->
+	<section class="pb-16 px-4">
+		<div class="max-w-5xl mx-auto">
+			<h2 class="text-white text-3xl font-bold text-center mb-8">Acces au festival</h2>
+			
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				
+				<!-- En voiture -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6 text-center">
+					<img src={iconCars.src} alt="" class="w-12 h-12 mx-auto mb-4"/>
+					<h3 class="text-violet text-xl font-bold mb-4">En voiture</h3>
+					<p class="text-gris text-sm">
+						Parking gratuit a 500m du site. Suivre les indications "Lumimix Festival" depuis l'autoroute A36.
+					</p>
+				</div>
+
+				<!-- En train -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6 text-center">
+					<img src={iconTrain.src} alt="" class="w-12 h-12 mx-auto mb-4"/>
+					<h3 class="text-violet text-xl font-bold mb-4">En train</h3>
+					<p class="text-gris text-sm">
+						Gare de Belfort-Montbeliard TGV. Navettes gratuites vers le site toutes les 30 minutes.
+					</p>
+				</div>
+
+				<!-- Sur place -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6 text-center">
+					<img src={iconLocate.src} alt="" class="w-12 h-12 mx-auto mb-4"/>
+					<h3 class="text-violet text-xl font-bold mb-4">Adresse</h3>
+					<p class="text-gris text-sm">
+						Lac de Malsaucy<br/>
+						90300 Sermamagny<br/>
+						Territoire de Belfort
+					</p>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- HEBERGEMENT -->
+	<section class="pb-16 px-4 bg-dark-blue">
+		<div class="max-w-5xl mx-auto">
+			<h2 class="text-white text-3xl font-bold text-center mb-8">Hebergement</h2>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				
+				<!-- Camping -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6">
+					<div class="flex items-center gap-4 mb-4">
+						<img src={iconImuble.src} alt="" class="w-10 h-10"/>
+						<h3 class="text-violet text-xl font-bold">Camping du festival</h3>
+					</div>
+					<p class="text-gris mb-4">
+						Un espace camping est disponible a proximite du site pour les festivaliers souhaitant passer la nuit sur place.
+					</p>
+					<ul class="text-gris text-sm space-y-2">
+						<li class="flex items-center gap-2">
+							<span class="w-2 h-2 bg-violet rounded-full"></span>
+							Douches et sanitaires
+						</li>
+						<li class="flex items-center gap-2">
+							<span class="w-2 h-2 bg-violet rounded-full"></span>
+							Securite 24h/24
+						</li>
+						<li class="flex items-center gap-2">
+							<span class="w-2 h-2 bg-violet rounded-full"></span>
+							Espace de rechargement telephone
+						</li>
+					</ul>
+				</div>
+
+				<!-- Hotels -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6">
+					<div class="flex items-center gap-4 mb-4">
+						<img src={iconImuble.src} alt="" class="w-10 h-10"/>
+						<h3 class="text-violet text-xl font-bold">Hotels a proximite</h3>
+					</div>
+					<p class="text-gris mb-4">
+						De nombreux hotels sont disponibles a Belfort et dans les environs pour un sejour plus confortable.
+					</p>
+					<ul class="text-gris text-sm space-y-2">
+						<li class="flex items-center gap-2">
+							<span class="w-2 h-2 bg-violet rounded-full"></span>
+							Hotels a Belfort (15 min)
+						</li>
+						<li class="flex items-center gap-2">
+							<span class="w-2 h-2 bg-violet rounded-full"></span>
+							Airbnb disponibles
+						</li>
+						<li class="flex items-center gap-2">
+							<span class="w-2 h-2 bg-violet rounded-full"></span>
+							Navettes retour incluses
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- HORAIRES -->
+	<section class="py-16 px-4">
+		<div class="max-w-3xl mx-auto">
+			<h2 class="text-white text-3xl font-bold text-center mb-8">Horaires</h2>
+			
+			<div class="bg-violet-foncer/30 rounded-2xl p-6 md:p-8">
+				<div class="flex items-center gap-4 mb-6">
+					<img src={iconCalendrier.src} alt="" class="w-10 h-10"/>
+					<h3 class="text-violet text-xl font-bold">Programme des soirees</h3>
+				</div>
+				
+				<div class="space-y-4">
+					<div class="flex justify-between items-center py-3 border-b border-gris/20">
+						<span class="text-white font-medium">Vendredi 18 Juillet</span>
+						<span class="text-gris">18h00 - 05h00</span>
+					</div>
+					<div class="flex justify-between items-center py-3 border-b border-gris/20">
+						<span class="text-white font-medium">Samedi 19 Juillet</span>
+						<span class="text-gris">18h00 - 05h00</span>
+					</div>
+					<div class="flex justify-between items-center py-3">
+						<span class="text-white font-medium">Dimanche 20 Juillet</span>
+						<span class="text-gris">18h00 - 03h00</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- INFOS IMPORTANTES -->
+	<section class="pb-16 px-4">
+		<div class="max-w-3xl mx-auto">
+			<h2 class="text-white text-3xl font-bold text-center mb-8">A savoir</h2>
+			
+			<div class="bg-violet-foncer/30 rounded-2xl p-6 md:p-8">
+				<div class="flex items-center gap-4 mb-6">
+					<img src={iconInfo.src} alt="" class="w-10 h-10"/>
+					<h3 class="text-violet text-xl font-bold">Informations importantes</h3>
+				</div>
+				
+				<ul class="text-gris space-y-3">
+					<li class="flex items-start gap-2">
+						<span class="w-2 h-2 bg-violet rounded-full mt-2"></span>
+						Festival interdit aux moins de 16 ans non accompagnes
+					</li>
+					<li class="flex items-start gap-2">
+						<span class="w-2 h-2 bg-violet rounded-full mt-2"></span>
+						Bouchons d'oreilles disponibles gratuitement sur site
+					</li>
+					<li class="flex items-start gap-2">
+						<span class="w-2 h-2 bg-violet rounded-full mt-2"></span>
+						Points d'eau potable gratuits
+					</li>
+					<li class="flex items-start gap-2">
+						<span class="w-2 h-2 bg-violet rounded-full mt-2"></span>
+						Paiement sans contact uniquement (cashless)
+					</li>
+					<li class="flex items-start gap-2">
+						<span class="w-2 h-2 bg-violet rounded-full mt-2"></span>
+						Animaux non autorises sur le site
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- BOUTON RETOUR -->
+	<section class="pb-16 text-center">
+		<a 
+			href="/" 
+			class="inline-block border-2 border-violet text-violet px-8 py-3 rounded-full font-bold hover:bg-violet hover:text-white"
+		>
+			Retour a l'accueil
+		</a>
+	</section>
+
+</Layout>
