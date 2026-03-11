@@ -114,12 +114,6 @@ const sceneName = artiste?.expand?.scene?.nom || "Non définie";
 									</div>
 
 									<div class="flex flex-wrap gap-4">
-										<a
-											href="/billetterie"
-											class="px-8 py-3 rounded-full font-bold hover:opacity-80 bg-gradient-3c text-white"
-										>
-											Réserver ma place
-										</a>
 										{artiste.scene && (
 											<a
 												href={`/scene/${artiste.scene}`}
