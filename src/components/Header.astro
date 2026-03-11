@@ -4,15 +4,18 @@ import logo from "../assets/icons/logo_lumimix.svg";
 import iconBurger from "../assets/icons/burgermenu.svg";
 import iconClose from "../assets/icons/Fermermenu.svg";
 
-// Définition de tes liens de navigation
+// Définition des liens de navigation (identiques au site Lumimix)
 const navLinks = [
-    { name: "Accueil", url: "/" },
-    { name: "Festival", url: "/festival" },
-    { name: "Programmation", url: "/programmation" },
-    { name: "Billetterie", url: "/billetterie" },
-    { name: "Infos pratiques", url: "/info-pratique" },
+    { name: "Le Festival", url: "/festival" },
+    { name: "Programme", url: "/programme" },
+    { name: "Artistes", url: "/artiste" },
+    { name: "Scènes", url: "/scene" },
+    { name: "Infos Pratiques", url: "/infos" },
     { name: "Contact", url: "/contact" },
 ];
+
+// Détection de la page actuelle
+const currentPath = Astro.url.pathname;
 ---
 
 <header
@@ -43,14 +46,23 @@ const navLinks = [
 
     <nav class="hidden lg:flex gap-8 items-center font-semibold text-lg">
         {
-            navLinks.map((link) => (
-                <a
-                    href={link.url}
-                    class="text-white hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300"
-                >
-                    {link.name}
-                </a>
-            ))
+            navLinks.map((link) => {
+                const isActive =
+                    currentPath === link.url ||
+                    (link.url !== "/" && currentPath.startsWith(link.url));
+                return (
+                    <a
+                        href={link.url}
+                        class={
+                            isActive
+                                ? "text-transparent bg-clip-text bg-[image:var(--background-image-gradient-3c)] transition-all duration-300"
+                                : "text-white hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300"
+                        }
+                    >
+                        {link.name}
+                    </a>
+                );
+            })
         }
     </nav>
 
@@ -60,14 +72,23 @@ const navLinks = [
     >
         <nav class="flex flex-col items-center gap-8 text-[2.5rem] font-bold">
             {
-                navLinks.map((link) => (
-                    <a
-                        href={link.url}
-                        class="text-white hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300 transform translate-y-4 opacity-0 nav-item"
-                    >
-                        {link.name}
-                    </a>
-                ))
+                navLinks.map((link) => {
+                    const isActive =
+                        currentPath === link.url ||
+                        (link.url !== "/" && currentPath.startsWith(link.url));
+                    return (
+                        <a
+                            href={link.url}
+                            class={
+                                isActive
+                                    ? "text-transparent bg-clip-text bg-[image:var(--background-image-gradient-3c)] transition-all duration-300 transform translate-y-4 opacity-0 nav-item"
+                                    : "text-white hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300 transform translate-y-4 opacity-0 nav-item"
+                            }
+                        >
+                            {link.name}
+                        </a>
+                    );
+                })
             }
         </nav>
 

@@ -22,8 +22,18 @@ export async function artisteID(id) {
 }
 
 export async function sceneID(id) {
-    const record = await pb.collection('scene').getOne(id);
-    return record;
+    console.log("=== Backend sceneID ===");
+    console.log("ID recu:", id);
+    console.log("Type:", typeof id);
+
+    try {
+        const record = await pb.collection('scene').getOne(id);
+        console.log("Record trouve:", record);
+        return record;
+    } catch (error) {
+        console.error("Erreur dans sceneID:", error);
+        throw error;
+    }
 }
 
 export async function allartistebysceneId(id) {

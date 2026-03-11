@@ -1,0 +1,357 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { sceneID, allartistebysceneId } from '../../../backend/backend.mjs';
+import type { RecordModel } from 'pocketbase';
+
+// Recuperer l'ID depuis l'URL
+const { id } = Astro.params;
+
+console.log("=== DEBUG ID ===");
+console.log("ID recu de l'URL:", id);
+console.log("Type de l'ID:", typeof id);
+
+// Variables pour stocker les donnees
+let scene: RecordModel | null = null;
+let artistes: RecordModel[] = [];
+let error: string | null = null;
+
+// Verifier que l'ID existe
+if (!id) {
+	error = "ID manquant";
+	console.error("Erreur: Aucun ID fourni dans l'URL");
+}
+
+// URL de base PocketBase pour les images
+const pbUrl = "http://127.0.0.1:8090";
+
+// Recuperer les donnees de la scene
+if (!error) {
+	try {
+		console.log("Appel de sceneID avec:", id);
+		scene = await sceneID(id);
+		
+		// Debug : afficher toutes les proprietes de scene
+		if (scene) {
+			console.log("=== DEBUG SCENE ===");
+			console.log("ID:", scene.id);
+			console.log("Nom:", scene.nom);
+			console.log("Photo:", scene.photo);
+			console.log("CollectionId:", scene.collectionId);
+			console.log("CollectionName:", scene.collectionName);
+			console.log("Objet complet:", JSON.stringify(scene, null, 2));
+			
+			// Construire l'URL de l'image
+			const imageUrl = `${pbUrl}/api/files/${scene.collectionId}/${scene.id}/${scene.photo}`;
+			console.log("URL de l'image:", imageUrl);
+		}
+		
+		// Recuperer tous les artistes de cette scene
+		if (scene) {
+			artistes = await allartistebysceneId(scene.id);
+		}
+	} catch (e) {
+		error = "Scene non trouvee";
+		console.error("Erreur lors de la recuperation de la scene:", e);
+	}
+}
+
+// Fonction pour formater la date
+function formatDate(dateString: string) {
+	const date = new Date(dateString);
+	const options: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' };
+	return date.toLocaleDateString('fr-FR', options);
+}
+
+// Fonction pour formater l'heure
+function formatTime(dateString: string) {
+	const date = new Date(dateString);
+	return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+}
+---
+
+<Layout title={scene ? `${scene.nom} - Lumimix` : "Scene - Lumimix"}>
+	
+	{error ? (
+		<!-- MESSAGE D'ERREUR -->
+		<section class="pt-32 pb-16 px-4 text-center min-h-screen">
+			<h1 class="text-white text-4xl font-bold mb-4">Scene non trouvee</h1>
+			<p class="text-gris mb-8">La scene que vous recherchez n'existe pas.</p>
+			<a 
+				href="/scene" 
+				class="inline-block bg-violet text-white px-8 py-3 rounded-full font-bold hover:opacity-80"
+			>
+				Voir toutes les scenes
+			</a>
+		</section>
+	) : scene && (
+		<!-- CONTENU DE LA PAGE -->
+		<>
+			<!-- HERO SCENE -->
+			<section class="pt-32 pb-16 px-4">
+				<div class="max-w-5xl mx-auto">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+						
+						<!-- Image principale -->
+						<div class="relative">
+							{scene.photo && scene.photo.length > 0 ? (
+								<img 
+									src={`${pbUrl}/api/files/${scene.collectionId}/${scene.id}/${scene.photo[0]}`}
+									alt={scene.nom} 
+									class="w-full h-96 object-cover rounded-2xl"
+									onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+								/>
+							) : null}
+							<div class={`w-full h-96 bg-violet-foncer rounded-2xl flex items-center justify-center ${scene.photo && scene.photo.length > 0 ? 'hidden' : ''}`}>
+								<div class="text-center">
+									<span class="text-gris text-xl block mb-2">📸</span>
+									<span class="text-gris">Pas d'image disponible</span>
+									<p class="text-sm text-gris mt-2">Ajoutez une image dans PocketBase</p>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Infos scene -->
+						<div>
+							<h1 class="text-5xl font-bold mb-6 bg-gradient-3c bg-clip-text text-transparent">{scene.nom}</h1>
+							
+							<!-- Infos pratiques -->
+							<div class="space-y-4 mb-8">
+								<div class="flex items-center gap-3">
+									<span class="text-violet font-bold">Capacite :</span>
+									<span class="text-white">{scene.capacite} personnes</span>
+								</div>
+								<div class="flex items-center gap-3">
+									<span class="text-violet font-bold">Artistes :</span>
+									<span class="text-white">{artistes.length} artiste{artistes.length > 1 ? 's' : ''}</span>
+								</div>
+							</div>
+							
+							<!-- Boutons -->
+							<div class="flex flex-wrap gap-4">
+								<a 
+									href="/billetterie" 
+									class="bg-gradient-3c text-white px-8 py-3 rounded-full font-bold hover:opacity-80"
+								>
+									Reserver ma place
+								</a>
+								<a 
+									href="/artiste"
+									class="border-2 border-violet text-violet px-8 py-3 rounded-full font-bold hover:bg-violet hover:text-white"
+								>
+									Voir les artistes
+								</a>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+
+			<!-- DESCRIPTION -->
+			{scene.description && (
+				<section class="pb-16 px-4">
+					<div class="max-w-3xl mx-auto">
+						<h2 class="text-3xl font-bold mb-6 bg-gradient-3c bg-clip-text text-transparent">A propos</h2>
+						<p class="text-gris text-lg leading-relaxed">
+							{scene.description}
+						</p>
+					</div>
+				</section>
+			)}
+
+			<!-- CARROUSEL DES ARTISTES -->
+			{artistes.length > 0 && (
+				<section class="pb-16 px-4">
+					<div class="max-w-7xl mx-auto">
+						<h2 class="text-3xl font-bold mb-6 bg-gradient-3c bg-clip-text text-transparent">Artistes sur cette scene</h2>
+						<div class="relative overflow-hidden">
+							<!-- Conteneur du carrousel -->
+							<div id="artistes-carousel-track" class="flex gap-4 transition-transform duration-700 ease-in-out">
+							{/* Artistes originaux */}
+							{artistes.map((artiste) => (
+								<div class="shrink-0 w-64 md:w-80">
+									<a href={`/artiste/${artiste.id}`} class="block bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform">
+									<!-- Image -->
+									<div class="relative">
+										{artiste.photo_principale ? (
+											<img 
+												src={`${pbUrl}/api/files/${artiste.collectionId}/${artiste.id}/${artiste.photo_principale}`}
+												alt={artiste.nom} 
+										class="w-full h-64 md:h-80 object-cover"
+											/>
+										) : (
+											<div class="w-full h-64 md:h-80 bg-violet-foncer flex items-center justify-center">
+												<span class="text-gris text-sm">Pas d'image</span>
+											</div>
+										)}
+										<!-- Badge genre -->
+										<span class="absolute top-3 left-3 bg-gradient-3c text-white text-xs px-3 py-1 rounded-full">
+											{artiste.genre_musical}
+										</span>
+									</div>
+									
+									<!-- Infos -->
+									<div class="p-4">
+										<h3 class="text-white text-lg font-bold mb-2">{artiste.nom}</h3>
+										<p class="text-gris text-sm mb-1">{formatDate(artiste.date_representation)}</p>
+										<p class="text-gris text-sm">{formatTime(artiste.date_representation)}</p>
+									</div>
+									
+								</a>
+							</div>
+						))}
+						{/* Duplication pour l'effet infini */}
+						{artistes.map((artiste) => (
+							<div class="shrink-0 w-64 md:w-80">
+								<a href={`/artiste/${artiste.id}`} class="block bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform">
+									<!-- Image -->
+									<div class="relative">
+										{artiste.photo_principale ? (
+											<img 
+												src={`${pbUrl}/api/files/${artiste.collectionId}/${artiste.id}/${artiste.photo_principale}`}
+												alt={artiste.nom} 
+												class="w-full h-64 md:h-80 object-cover"
+											/>
+										) : (
+											<div class="w-full h-64 md:h-80 bg-violet-foncer flex items-center justify-center">
+												<span class="text-gris text-sm">Pas d'image</span>
+											</div>
+										)}
+										<!-- Badge genre -->
+										<span class="absolute top-3 left-3 bg-gradient-3c text-white text-xs px-3 py-1 rounded-full">
+											{artiste.genre_musical}
+										</span>
+									</div>
+									
+									<!-- Infos -->
+									<div class="p-4">
+										<h3 class="text-white text-lg font-bold mb-2">{artiste.nom}</h3>
+										<p class="text-gris text-sm mb-1">{formatDate(artiste.date_representation)}</p>
+										<p class="text-gris text-sm">{formatTime(artiste.date_representation)}</p>
+									</div>
+									
+								</a>
+							</div>
+						))}
+					</div>
+					
+					<!-- Boutons de navigation -->
+					<button 
+						id="artistes-prev-btn"
+						class="absolute left-4 top-1/2 -translate-y-1/2 bg-violet/80 hover:bg-violet text-white w-12 h-12 rounded-full flex items-center justify-center z-10 transition-colors"
+						aria-label="Artiste précédent"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+						</svg>
+					</button>
+					<button 
+						id="artistes-next-btn"
+						class="absolute right-4 top-1/2 -translate-y-1/2 bg-violet/80 hover:bg-violet text-white w-12 h-12 rounded-full flex items-center justify-center z-10 transition-colors"
+						aria-label="Artiste suivant"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+						</svg>
+					</button>
+				</div>
+					</div>
+				</section>
+			)}
+
+			<!-- BOUTON RETOUR -->
+			<section class="pb-16 text-center">
+				<a 
+					href="/scene" 
+					class="inline-block border-2 border-violet text-violet px-8 py-3 rounded-full font-bold hover:bg-violet hover:text-white"
+				>
+					Voir toutes les scenes
+				</a>
+			</section>
+		</>
+	)}
+
+	<script>
+		// Script pour le carrousel d'artistes
+		const artistesTrack = document.getElementById('artistes-carousel-track');
+		const artistesPrevBtn = document.getElementById('artistes-prev-btn');
+		const artistesNextBtn = document.getElementById('artistes-next-btn');
+		
+		if (artistesTrack && artistesPrevBtn && artistesNextBtn) {
+			let currentIndex = 0;
+			const items = artistesTrack.querySelectorAll('.shrink-0');
+			const totalItems = items.length / 2; // Divisé par 2 car on a dupliqué les artistes
+			const itemWidth = (items[0] as HTMLElement)?.offsetWidth || 0;
+			const gap = 16; // 4 * 4px (gap-4 en Tailwind)
+			const slideWidth = itemWidth + gap;
+			
+			let autoScrollInterval;
+			
+			function updateCarousel(smooth = true) {
+				if (!smooth) {
+					artistesTrack!.style.transition = 'none';
+				} else {
+					artistesTrack!.style.transition = 'transform 0.7s ease-in-out';
+				}
+				artistesTrack!.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+			}
+			
+			function nextSlide() {
+				currentIndex++;
+				updateCarousel();
+				
+				// Réinitialiser quand on atteint la fin des artistes originaux
+				if (currentIndex >= totalItems) {
+					setTimeout(() => {
+						currentIndex = 0;
+						updateCarousel(false);
+					}, 700);
+				}
+			}
+			
+			function prevSlide() {
+				if (currentIndex === 0) {
+					currentIndex = totalItems;
+					updateCarousel(false);
+					setTimeout(() => {
+						currentIndex--;
+						updateCarousel();
+					}, 50);
+				} else {
+					currentIndex--;
+					updateCarousel();
+				}
+			}
+			
+			// Auto-scroll
+			function startAutoScroll() {
+				autoScrollInterval = setInterval(nextSlide, 3000);
+			}
+			
+			function stopAutoScroll() {
+				clearInterval(autoScrollInterval);
+			}
+			
+			// Event listeners pour les boutons
+			artistesNextBtn.addEventListener('click', () => {
+				stopAutoScroll();
+				nextSlide();
+				startAutoScroll();
+			});
+			
+			artistesPrevBtn.addEventListener('click', () => {
+				stopAutoScroll();
+				prevSlide();
+				startAutoScroll();
+			});
+			
+			// Pause au survol
+			artistesTrack.addEventListener('mouseenter', stopAutoScroll);
+			artistesTrack.addEventListener('mouseleave', startAutoScroll);
+			
+			// Démarrer l'auto-scroll
+			startAutoScroll();
+		}
+	</script>
+
+</Layout>

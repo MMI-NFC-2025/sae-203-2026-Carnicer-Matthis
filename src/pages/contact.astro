@@ -1,0 +1,261 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Images
+import heroImage from "../assets/img/Hero-contact.svg";
+
+// Icones
+import iconMail from "../assets/icons/mail.svg";
+import iconPhone from "../assets/icons/phone.svg";
+import iconLocate from "../assets/icons/locate.svg";
+import iconSend from "../assets/icons/send.svg";
+import iconDownload from "../assets/icons/dowload.svg";
+
+// Icones reseaux sociaux
+import iconYt from "../assets/icons/youtube.svg";
+import iconX from "../assets/icons/x.svg";
+import iconInsta from "../assets/icons/instagram.svg";
+import iconFb from "../assets/icons/facebook.svg";
+---
+
+<Layout title="Contact - Lumimix">
+	<!-- HERO -->
+	<section
+		class="relative h-[50vh] flex items-center justify-center -mt-24 pt-32"
+	>
+		<img
+			src={heroImage.src}
+			alt="Festival Lumimix"
+			class="absolute inset-0 w-full h-full object-cover"
+		/>
+		<div
+			class="absolute inset-0 bg-gradient-to-b from-violet-foncer/60 to-black/80"
+		>
+		</div>
+		<div class="relative z-10 text-center px-4">
+			<h1
+				class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Contact
+			</h1>
+			<p class="text-white text-lg md:text-xl">
+				Une question ? N'hésitez pas à nous contacter
+			</p>
+		</div>
+	</section>
+
+	<!-- FORMULAIRE -->
+	<section class="py-16 px-4 bg-dark-blue">
+		<div class="max-w-2xl mx-auto">
+			<h2
+				class="text-3xl font-bold mb-3 text-center bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Envoyez-nous un message
+			</h2>
+
+			<form class="flex flex-col gap-4 mt-8">
+				<div>
+					<label for="nom" class="text-white block mb-2"
+						>Nom complet</label
+					>
+					<input
+						type="text"
+						id="nom"
+						name="nom"
+						placeholder="Votre nom"
+						class="w-full bg-violet-foncer/30 border border-violet-foncer rounded-lg px-4 py-3 text-white placeholder:text-gris focus:border-violet focus:outline-none"
+						required
+					/>
+				</div>
+
+				<div>
+					<label for="email" class="text-white block mb-2"
+						>Email</label
+					>
+					<input
+						type="email"
+						id="email"
+						name="email"
+						placeholder="votre@email.com"
+						class="w-full bg-violet-foncer/30 border border-violet-foncer rounded-lg px-4 py-3 text-white placeholder:text-gris focus:border-violet focus:outline-none"
+						required
+					/>
+				</div>
+
+				<div>
+					<label for="sujet" class="text-white block mb-2"
+						>Sujet</label
+					>
+					<input
+						type="text"
+						id="sujet"
+						name="sujet"
+						placeholder="Sujet de votre message"
+						class="w-full bg-violet-foncer/30 border border-violet-foncer rounded-lg px-4 py-3 text-white placeholder:text-gris focus:border-violet focus:outline-none"
+						required
+					/>
+				</div>
+
+				<div>
+					<label for="message" class="text-white block mb-2"
+						>Message</label
+					>
+					<textarea
+						id="message"
+						name="message"
+						rows="5"
+						placeholder="Votre message..."
+						class="w-full bg-violet-foncer/30 border border-violet-foncer rounded-lg px-4 py-3 text-white placeholder:text-gris focus:border-violet focus:outline-none resize-none"
+						required></textarea>
+				</div>
+
+				<button
+					type="submit"
+					class="bg-gradient-3c text-white px-8 py-3 rounded-full font-bold hover:opacity-80 mt-4 flex items-center justify-center gap-2"
+				>
+					<img src={iconSend.src} alt="" class="w-5 h-5" />
+					Envoyer le message
+				</button>
+			</form>
+		</div>
+	</section>
+
+	<!-- INFORMATIONS DE CONTACT -->
+	<section class="py-16 px-4">
+		<div class="max-w-6xl mx-auto">
+			<h2
+				class="text-3xl font-bold mb-12 text-center bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Informations de contact
+			</h2>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<!-- Email -->
+				<div
+					class="bg-violet-foncer/30 rounded-2xl p-6 flex flex-col items-center text-center"
+				>
+					<div class="bg-violet/20 rounded-full p-4 mb-4">
+						<img src={iconMail.src} alt="Email" class="w-8 h-8" />
+					</div>
+					<h3 class="text-white font-bold text-lg mb-3">Email</h3>
+					<p class="text-gris text-sm mb-2">
+						contact@lumimix-festival.fr
+					</p>
+					<p class="text-gris text-xs">Réponse sous 48h</p>
+				</div>
+
+				<!-- Téléphone -->
+				<div
+					class="bg-violet-foncer/30 rounded-2xl p-6 flex flex-col items-center text-center"
+				>
+					<div class="bg-violet/20 rounded-full p-4 mb-4">
+						<img
+							src={iconPhone.src}
+							alt="Téléphone"
+							class="w-8 h-8"
+						/>
+					</div>
+					<h3 class="text-white font-bold text-lg mb-3">Téléphone</h3>
+					<p class="text-gris text-sm mb-2">+33 3 84 22 00 00</p>
+					<p class="text-gris text-xs">Lun-Ven : 9h-18h</p>
+				</div>
+
+				<!-- Adresse -->
+				<div
+					class="bg-violet-foncer/30 rounded-2xl p-6 flex flex-col items-center text-center"
+				>
+					<div class="bg-violet/20 rounded-full p-4 mb-4">
+						<img
+							src={iconLocate.src}
+							alt="Adresse"
+							class="w-8 h-8"
+						/>
+					</div>
+					<h3 class="text-white font-bold text-lg mb-3">Adresse</h3>
+					<p class="text-gris text-sm mb-2">Lumimix Festival</p>
+					<p class="text-gris text-xs">Base de loisirs du Malsaucy</p>
+					<p class="text-gris text-xs">90300 Sermamagny, France</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- SUIVEZ-NOUS -->
+	<section class="py-16 px-4 bg-dark-blue">
+		<div class="max-w-4xl mx-auto text-center">
+			<h2 class="text-white text-3xl font-bold mb-8">Suivez-nous</h2>
+
+			<div class="flex gap-6 justify-center mb-8">
+				<a
+					href="https://www.facebook.com/"
+					target="_blank"
+					class="bg-violet-foncer/30 p-4 rounded-full hover:bg-violet transition-colors"
+				>
+					<img src={iconFb.src} alt="Facebook" class="w-8 h-8" />
+				</a>
+				<a
+					href="https://www.instagram.com/"
+					target="_blank"
+					class="bg-violet-foncer/30 p-4 rounded-full hover:bg-violet transition-colors"
+				>
+					<img src={iconInsta.src} alt="Instagram" class="w-8 h-8" />
+				</a>
+				<a
+					href="https://x.com/"
+					target="_blank"
+					class="bg-violet-foncer/30 p-4 rounded-full hover:bg-violet transition-colors"
+				>
+					<img src={iconX.src} alt="X" class="w-8 h-8" />
+				</a>
+				<a
+					href="https://www.youtube.com/"
+					target="_blank"
+					class="bg-violet-foncer/30 p-4 rounded-full hover:bg-violet transition-colors"
+				>
+					<img src={iconYt.src} alt="YouTube" class="w-8 h-8" />
+				</a>
+			</div>
+
+			<div class="bg-violet-foncer/30 rounded-2xl p-6 max-w-2xl mx-auto">
+				<p class="text-gris text-sm">
+					Pour toute demande de partenariat ou de collaboration, merci
+					d'utiliser l'adresse :
+				</p>
+				<p class="text-violet font-bold mt-2">
+					partenariats@lumimix-festival.fr
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- ESPACE PRESSE -->
+	<section class="py-16 px-4">
+		<div class="max-w-4xl mx-auto text-center">
+			<h2
+				class="text-3xl font-bold mb-4 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Espace Presse
+			</h2>
+			<p class="text-gris text-lg mb-8">
+				Vous êtes journaliste ou média et souhaitez couvrir le festival
+				Lumimix ?
+			</p>
+
+			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+				<a
+					href="#"
+					class="bg-violet-foncer/30 text-white px-8 py-3 rounded-full font-bold hover:bg-violet-foncer/50 transition-colors flex items-center justify-center gap-2"
+				>
+					<img src={iconDownload.src} alt="" class="w-5 h-5" />
+					Télécharger le dossier de presse
+				</a>
+				<a
+					href="#"
+					class="bg-gradient-3c text-white px-8 py-3 rounded-full font-bold hover:opacity-80 transition-opacity"
+				>
+					Accréditation presse
+				</a>
+			</div>
+		</div>
+	</section>
+</Layout>

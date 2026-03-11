@@ -1,10 +1,322 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Images
+import heroImage from "../assets/img/hero_acceuil.avif";
+import sceneImage from "../assets/img/main_stage.avif";
+import djImage from "../assets/img/dj_rouge.avif";
+import sceneBleuFondImage from "../assets/img/scene_bleu_fond.avif";
+import djFondImage from "../assets/img/dj_fond.avif";
+import sceneRougeFondImage from "../assets/img/scene_rouge_fond.avif";
+import publicFondImage from "../assets/img/public_fond.avif";
+
+// Logos partenaires
+import logoCreditMutuel from "../assets/icons/logo_credit_mutuel.svg";
+import logoDesperados from "../assets/icons/logo_desperados.svg";
+import logoWeezevent from "../assets/icons/logo_weezevent.svg";
+import logoCocaCola from "../assets/icons/logo_coca_cola.svg";
+import logoDeezer from "../assets/icons/logo_deezer.svg";
+import logoNrj from "../assets/icons/logo_nrj.svg";
+
+// Icones
+import iconCalendrier from "../assets/icons/calendrier.svg";
+import iconLocate from "../assets/icons/locate.svg";
+import iconMusique from "../assets/icons/musique.svg";
+import iconUserMulti from "../assets/icons/user_multi.svg";
+import iconEtoile from "../assets/icons/etoile.svg";
+import iconTicket from "../assets/icons/ticket.svg";
 ---
 
-<Layout>
-	<h1>Welcome to Astro!</h1>
+<Layout title="Lumimix - Festival 2025">
+	<!-- SECTION HERO -->
+	<section
+		class="relative min-h-screen flex items-center justify-center -mt-24"
+	>
+		<!-- Image de fond -->
+		<img
+			src={heroImage.src}
+			alt="Festival Lumimix"
+			class="absolute inset-0 w-full h-full object-cover"
+		/>
+		<!-- Overlay sombre -->
+		<div class="absolute inset-0 bg-black/50"></div>
+
+		<!-- Contenu -->
+		<div class="relative z-10 text-center px-4">
+			<h1
+				class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				LUMIMIX 2025
+			</h1>
+			<p class="text-white text-lg md:text-xl max-w-2xl mx-auto mb-8">
+				Un festival nocturne immersif où DJs, son et lumière fusionnent
+				pour créer un voyage sensoriel unique
+			</p>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+				<a
+					href="/billetterie"
+					class="bg-gradient-3c text-white px-8 py-3 rounded-full font-bold hover:opacity-80"
+				>
+					Billetterie
+				</a>
+				<a
+					href="/artiste"
+					class="border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-dark-blue"
+				>
+					Découvrir le programme
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- SECTION INFOS RAPIDES -->
+	<section class="py-16 px-4">
+		<div
+			class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
+		>
+			<!-- 3 Nuits -->
+			<div class="bg-violet-foncer/30 p-8 rounded-2xl">
+				<img
+					src={iconCalendrier.src}
+					alt="Calendrier"
+					class="w-12 h-12 mx-auto mb-4"
+				/>
+				<h3 class="text-2xl font-bold text-white mb-2">3 Nuits</h3>
+				<p class="text-gris">18, 19 & 20 Juillet 2025</p>
+			</div>
+
+			<!-- Lieu -->
+			<div class="bg-violet-foncer/30 p-8 rounded-2xl">
+				<img
+					src={iconLocate.src}
+					alt="Localisation"
+					class="w-12 h-12 mx-auto mb-4"
+				/>
+				<h3 class="text-2xl font-bold text-white mb-2">
+					Lac de Malsaucy
+				</h3>
+				<p class="text-gris">Territoire de Belfort (90)</p>
+			</div>
+
+			<!-- Artistes -->
+			<div class="bg-violet-foncer/30 p-8 rounded-2xl">
+				<img
+					src={iconMusique.src}
+					alt="Artistes"
+					class="w-12 h-12 mx-auto mb-4"
+				/>
+				<h3 class="text-2xl font-bold text-white mb-2">8 Artistes</h3>
+				<p class="text-gris">Les meilleurs DJs internationaux</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- SECTION NOS VALEURS -->
+	<section class="py-16 px-4 bg-dark-blue">
+		<div class="max-w-5xl mx-auto">
+			<h2
+				class="text-4xl font-bold mb-12 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Nos Valeurs
+			</h2>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<!-- Inclusion -->
+				<div class="bg-violet-foncer/30 p-8 rounded-2xl">
+					<div
+						class="bg-violet w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
+					>
+						<img
+							src={iconUserMulti.src}
+							alt="Inclusion"
+							class="w-8 h-8"
+						/>
+					</div>
+					<h3 class="text-white text-xl font-bold mb-4">Inclusion</h3>
+					<p class="text-gris">
+						Un festival ouvert à toutes et tous, où chacun se sent
+						accueilli, respecté et libre de vivre la fête, peu
+						importe son style ou son origine.
+					</p>
+				</div>
+
+				<!-- Créativité -->
+				<div class="bg-violet-foncer/30 p-8 rounded-2xl">
+					<div
+						class="bg-[#E91E8C] w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
+					>
+						<img
+							src={iconEtoile.src}
+							alt="Créativité"
+							class="w-8 h-8"
+						/>
+					</div>
+					<h3 class="text-white text-xl font-bold mb-4">
+						Créativité
+					</h3>
+					<p class="text-gris">
+						Un terrain d'expression où l'imagination et l'innovation
+						prennent vie : des shows qui racontent une histoire, un
+						festival unique en renouvellement constant.
+					</p>
+				</div>
+
+				<!-- Divertissement -->
+				<div class="bg-violet-foncer/30 p-8 rounded-2xl">
+					<div
+						class="bg-[#5B98E8] w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
+					>
+						<img
+							src={iconTicket.src}
+							alt="Divertissement"
+							class="w-8 h-8"
+						/>
+					</div>
+					<h3 class="text-white text-xl font-bold mb-4">
+						Divertissement
+					</h3>
+					<p class="text-gris">
+						Un moment de plaisir pur : énergie, danse, émotions
+						positives, déconnexion du quotidien — vibrer au son des
+						basses et s'en mettre plein les yeux.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- SECTION PROGRAMME -->
+	<section class="py-16 px-4">
+		<div class="max-w-5xl mx-auto">
+			<h2
+				class="text-4xl font-bold mb-12 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Programme
+			</h2>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+				<!-- Programme -->
+				<a
+					href="/programme"
+					class="group relative overflow-hidden rounded-2xl"
+				>
+					<img
+						src={sceneBleuFondImage.src}
+						alt="Programme"
+						class="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+					/>
+					<div class="absolute inset-0 bg-black/40">
+						<h3
+							class="absolute bottom-4 left-4 text-white text-3xl font-bold"
+						>
+							Programme
+						</h3>
+					</div>
+				</a>
+
+				<!-- Artistes -->
+				<a
+					href="/artiste"
+					class="group relative overflow-hidden rounded-2xl"
+				>
+					<img
+						src={djFondImage.src}
+						alt="Artistes"
+						class="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+					/>
+					<div class="absolute inset-0 bg-black/40">
+						<h3
+							class="absolute bottom-4 left-4 text-white text-3xl font-bold"
+						>
+							Artistes
+						</h3>
+					</div>
+				</a>
+
+				<!-- Scènes -->
+				<a
+					href="/scene"
+					class="group relative overflow-hidden rounded-2xl"
+				>
+					<img
+						src={sceneRougeFondImage.src}
+						alt="Scènes"
+						class="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+					/>
+					<div class="absolute inset-0 bg-black/40">
+						<h3
+							class="absolute bottom-4 left-4 text-white text-3xl font-bold"
+						>
+							Scènes
+						</h3>
+					</div>
+				</a>
+
+				<!-- Infos Pratiques -->
+				<a
+					href="/infos"
+					class="group relative overflow-hidden rounded-2xl"
+				>
+					<img
+						src={publicFondImage.src}
+						alt="Infos Pratiques"
+						class="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+					/>
+					<div class="absolute inset-0 bg-black/40">
+						<h3
+							class="absolute bottom-4 left-4 text-white text-3xl font-bold"
+						>
+							Infos Pratiques
+						</h3>
+					</div>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- SECTION PARTENAIRES -->
+	<section class="py-16 px-4">
+		<div class="max-w-5xl mx-auto">
+			<h2
+				class="text-4xl font-bold mb-12 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Nos Partenaires
+			</h2>
+
+			<div
+				class="flex flex-wrap justify-center items-center gap-8 md:gap-12"
+			>
+				<img
+					src={logoCreditMutuel.src}
+					alt="Crédit Mutuel"
+					class="h-12 opacity-70 hover:opacity-100"
+				/>
+				<img
+					src={logoDesperados.src}
+					alt="Desperados"
+					class="h-12 opacity-70 hover:opacity-100"
+				/>
+				<img
+					src={logoWeezevent.src}
+					alt="Weezevent"
+					class="h-12 opacity-70 hover:opacity-100"
+				/>
+				<img
+					src={logoCocaCola.src}
+					alt="Coca Cola"
+					class="h-12 opacity-70 hover:opacity-100"
+				/>
+				<img
+					src={logoDeezer.src}
+					alt="Deezer"
+					class="h-12 opacity-70 hover:opacity-100"
+				/>
+				<img
+					src={logoNrj.src}
+					alt="NRJ"
+					class="h-12 opacity-70 hover:opacity-100"
+				/>
+			</div>
+		</div>
+	</section>
 </Layout>

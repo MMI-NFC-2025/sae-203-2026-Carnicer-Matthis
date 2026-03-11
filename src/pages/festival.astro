@@ -1,0 +1,335 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Images
+import heroImage from "../assets/img/scene_rouge_fond-2.avif";
+import historyImage from "../assets/img/public_lumimix.avif";
+
+// Icônes pour les valeurs
+import iconUserMulti from "../assets/icons/user_multi.svg";
+import iconEtoile from "../assets/icons/etoile.svg";
+import iconTicket from "../assets/icons/ticket.svg";
+import iconHeart from "../assets/icons/white-heart.svg";
+---
+
+<Layout title="Le Festival - Lumimix">
+	<!-- HERO -->
+	<section
+		class="relative h-[70vh] flex items-center justify-center -mt-24 pt-32"
+	>
+		<img
+			src={heroImage.src}
+			alt="Festival Lumimix"
+			class="absolute inset-0 w-full h-full object-cover"
+		/>
+		<div
+			class="absolute inset-0 bg-gradient-to-b from-violet-foncer/60 to-black/80"
+		>
+		</div>
+		<div class="relative z-10 text-center px-4">
+			<h1
+				class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Le Festival
+			</h1>
+			<p class="text-white text-lg md:text-xl">
+				Découvrez l'histoire et les valeurs de Lumimix
+			</p>
+		</div>
+	</section>
+
+	<!-- NOTRE HISTOIRE -->
+	<section class="py-16 px-4 bg-dark-blue">
+		<div class="max-w-5xl mx-auto">
+			<h2
+				class="text-4xl font-bold mb-12 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Notre Histoire
+			</h2>
+
+			<div class="mb-8">
+				<p class="text-gris text-lg leading-relaxed mb-6">
+					Créé en 2020 par un collectif de passionnés de musique
+					électronique, Lumimix est né d'une vision ambitieuse :
+					offrir un festival où la musique électronique rencontre
+					l'art visuel dans un cadre naturel exceptionnel.
+				</p>
+				<p class="text-gris text-lg leading-relaxed mb-6">
+					Dès sa création, le lac de Malsaucy dans le Territoire de
+					Belfort a été choisi comme lieu de vie du festival. Ses
+					paysages en ont fait un terrain d'expression où la lumière
+					et la nature dialoguent au rythme des basses. Aujourd'hui,
+					ce site unique accueille chaque année près de 30 000
+					festivaliers venus de toute la France et d'au-delà.
+				</p>
+				<p class="text-gris text-lg leading-relaxed">
+					Chaque édition repousse les limites de l'innovation
+					lumineuse et scénographique. Des drones synchronisés aux
+					installations interactives, Lumimix continue d'écrire une
+					histoire en mouvement et de se renouveler pour vous
+					émerveillez.
+				</p>
+			</div>
+
+			<div class="flex justify-start">
+				<img
+					src={historyImage.src}
+					alt="Histoire Lumimix"
+					class="rounded-2xl w-full max-w-2xl h-auto object-cover shadow-2xl shadow-violet/20"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<!-- NOTRE CHARTE DE VALEURS -->
+	<section class="py-16 px-4">
+		<div class="max-w-5xl mx-auto">
+			<h2
+				class="text-4xl font-bold mb-12 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Notre Charte de Valeurs
+			</h2>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				<!-- Inclusion -->
+				<div
+					class="bg-violet-foncer/20 p-6 rounded-2xl border border-violet-foncer/30"
+				>
+					<div class="flex items-start gap-4 mb-4">
+						<div
+							class="bg-violet w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+						>
+							<img
+								src={iconUserMulti.src}
+								alt="Inclusion"
+								class="w-6 h-6"
+							/>
+						</div>
+						<h3 class="text-violet text-xl font-bold">Inclusion</h3>
+					</div>
+					<p class="text-gris">
+						Un festival ouvert à toutes et tous, quel que soit votre
+						âge, origine ou style. Ici, seul compte le respect et le
+						désir de vivre la fête dans la bienveillance.
+					</p>
+				</div>
+
+				<!-- Créativité -->
+				<div
+					class="bg-violet-foncer/20 p-6 rounded-2xl border border-violet-foncer/30"
+				>
+					<div class="flex items-start gap-4 mb-4">
+						<div
+							class="bg-[#E91E8C] w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+						>
+							<img
+								src={iconEtoile.src}
+								alt="Créativité"
+								class="w-6 h-6"
+							/>
+						</div>
+						<h3 class="text-[#E91E8C] text-xl font-bold">
+							Créativité
+						</h3>
+					</div>
+					<p class="text-gris">
+						Un terrain d'expression artistique où l'imagination
+						prend vie : des shows qui racontent une histoire, un
+						festival unique en perpétuel renouvellement.
+					</p>
+				</div>
+
+				<!-- Divertissement -->
+				<div
+					class="bg-violet-foncer/20 p-6 rounded-2xl border border-violet-foncer/30"
+				>
+					<div class="flex items-start gap-4 mb-4">
+						<div
+							class="bg-[#5B98E8] w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+						>
+							<img
+								src={iconTicket.src}
+								alt="Divertissement"
+								class="w-6 h-6"
+							/>
+						</div>
+						<h3 class="text-[#5B98E8] text-xl font-bold">
+							Divertissement
+						</h3>
+					</div>
+					<p class="text-gris">
+						Un moment de plaisir à l'état pur : énergie, danse,
+						émotions positives, déconnexion du quotidien. Vibrez au
+						son des basses et déconnectez le temps d'une nuit.
+					</p>
+				</div>
+
+				<!-- Convivialité & Bienveillance -->
+				<div
+					class="bg-violet-foncer/20 p-6 rounded-2xl border border-violet-foncer/30"
+				>
+					<div class="flex items-start gap-4 mb-4">
+						<div
+							class="bg-[#E91E8C] w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+						>
+							<img
+								src={iconHeart.src}
+								alt="Convivialité"
+								class="w-6 h-6"
+							/>
+						</div>
+						<h3 class="text-[#E91E8C] text-xl font-bold">
+							Convivialité & Bienveillance
+						</h3>
+					</div>
+					<p class="text-gris">
+						Une ambiance chaleureuse où solidarité et entraide
+						sincère dominent. Ici, chacun prend soin de l'autre, et
+						l'ensemble incarne le plaisir de partager un moment de
+						vie intense et authentique.
+					</p>
+				</div>
+
+				<!-- Émerveillement -->
+				<div
+					class="bg-violet-foncer/20 p-6 rounded-2xl border border-violet-foncer/30"
+				>
+					<div class="flex items-start gap-4 mb-4">
+						<div
+							class="bg-violet w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+						>
+							<img
+								src={iconEtoile.src}
+								alt="Émerveillement"
+								class="w-6 h-6"
+							/>
+						</div>
+						<h3 class="text-violet text-xl font-bold">
+							Émerveillement
+						</h3>
+					</div>
+					<p class="text-gris">
+						Offrir des instants magiques et des expériences
+						visuelles qui vont au-delà des attentes. La lumière, le
+						son et l'énergie se fusionnent pour créer des souvenirs
+						impérissables.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- NOTRE ÉQUIPE -->
+	<section class="py-16 px-4 bg-dark-blue">
+		<div class="max-w-5xl mx-auto">
+			<h2
+				class="text-4xl font-bold mb-4 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Notre Équipe
+			</h2>
+			<p class="text-gris mb-12">
+				Des passionnés qui travaillent toute l'année pour créer cette
+				magie éphémère.
+			</p>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+				<!-- Sophie Martin -->
+				<div class="text-center group">
+					<div
+						class="bg-gradient-3c w-32 h-32 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-4xl font-bold"
+					>
+						SM
+					</div>
+					<h3 class="text-white text-xl font-bold mb-2">
+						Sophie Martin
+					</h3>
+					<p class="text-violet text-sm mb-3">
+						Directrice Artistique
+					</p>
+					<p class="text-gris text-sm">
+						Passionnée de musique électronique depuis 10 ans
+					</p>
+				</div>
+
+				<!-- Lucas Dubois -->
+				<div class="text-center group">
+					<div
+						class="bg-gradient-3c w-32 h-32 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-4xl font-bold"
+					>
+						LD
+					</div>
+					<h3 class="text-white text-xl font-bold mb-2">
+						Lucas Dubois
+					</h3>
+					<p class="text-violet text-sm mb-3">
+						Directeur d'Exploitation
+					</p>
+					<p class="text-gris text-sm">
+						Ancien organisateur de plus de 20 festivals et parties
+					</p>
+				</div>
+
+				<!-- Emma Laurent -->
+				<div class="text-center group">
+					<div
+						class="bg-gradient-3c w-32 h-32 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-4xl font-bold border-4 border-violet"
+					>
+						EL
+					</div>
+					<h3 class="text-white text-xl font-bold mb-2">
+						Emma Laurent
+					</h3>
+					<p class="text-violet text-sm mb-3">
+						Responsable Communication
+					</p>
+					<p class="text-gris text-sm">
+						Spécialiste en marketing digital et médias créatifs
+					</p>
+				</div>
+
+				<!-- Thomas Bernard -->
+				<div class="text-center group">
+					<div
+						class="bg-gradient-3c w-32 h-32 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-4xl font-bold"
+					>
+						TB
+					</div>
+					<h3 class="text-white text-xl font-bold mb-2">
+						Thomas Bernard
+					</h3>
+					<p class="text-violet text-sm mb-3">
+						Responsable Technique
+					</p>
+					<p class="text-gris text-sm">
+						Expert son et plus de 15 ans d'expérience
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- NOTRE MISSION -->
+	<section class="py-16 px-4">
+		<div class="max-w-4xl mx-auto">
+			<h2
+				class="text-4xl font-bold mb-12 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Notre Mission
+			</h2>
+
+			<p class="text-gris text-lg leading-relaxed mb-6">
+				Créer un voyage émotionnel unique où la musique électronique, la
+				lumière et la nature fusionnent pour générer des moments
+				d'exception.
+			</p>
+
+			<p class="text-gris text-lg leading-relaxed">
+				Nous croyons que la magie d'un festival réside dans l'ambiance
+				et l'énergie que les festivaliers construisent ensemble. C'est
+				pourquoi nous mettons tout en œuvre pour offrir à chaque édition
+				un espace de découverte artistique porteur d'émotions
+				authentiques et de souvenirs inoubliables.
+			</p>
+		</div>
+	</section>
+</Layout>

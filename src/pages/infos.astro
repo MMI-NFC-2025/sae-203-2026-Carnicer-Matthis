@@ -1,0 +1,503 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Images
+import heroImage from "../assets/img/public_lumimix.avif";
+
+// Icones
+import iconLocate from "../assets/icons/locate.svg";
+import iconCars from "../assets/icons/cars.svg";
+import iconTrain from "../assets/icons/train.svg";
+import iconImuble from "../assets/icons/imuble.svg";
+import iconTicketPurple from "../assets/icons/ticket_purple.svg";
+import iconFAQ from "../assets/icons/FAQ.svg";
+import iconUserMultiPurple from "../assets/icons/user_multi_purple.svg";
+import iconPlus from "../assets/icons/+.svg";
+---
+
+<Layout title="Infos Pratiques - Lumimix">
+	<!-- HERO -->
+	<section
+		class="relative h-[70vh] flex items-center justify-center -mt-24 pt-32"
+	>
+		<img
+			src={heroImage.src}
+			alt="Festival Lumimix"
+			class="absolute inset-0 w-full h-full object-cover"
+		/>
+		<div
+			class="absolute inset-0 bg-gradient-to-b from-violet-foncer/60 to-black/80"
+		>
+		</div>
+		<div class="relative z-10 text-center px-4">
+			<h1
+				class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				INFOS PRATIQUES
+			</h1>
+			<p class="text-white text-lg md:text-xl">
+				Tout ce que vous devez savoir pour profiter au mieux du festival
+			</p>
+		</div>
+	</section>
+
+	<!-- TARIFS -->
+	<section class="py-16 px-4 bg-dark-blue">
+		<div class="max-w-6xl mx-auto">
+			<h2
+				class="text-3xl font-bold mb-12 text-center flex items-center justify-center gap-3"
+			>
+				<img src={iconTicketPurple.src} alt="" class="w-8 h-8" />
+				<span class="bg-gradient-3c bg-clip-text text-transparent"
+					>Tarifs</span
+				>
+			</h2>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<!-- Pass 1 Jour -->
+				<div
+					class="bg-violet-foncer/30 rounded-2xl p-8 border border-violet-foncer/30"
+				>
+					<h3 class="text-white text-2xl font-bold mb-4">
+						Pass 1 Jour
+					</h3>
+					<div class="text-violet text-5xl font-bold mb-6">65€</div>
+					<ul class="text-gris space-y-3">
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Accès 1 journée complète</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Accès à toutes les scènes</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Parking inclus</span>
+						</li>
+					</ul>
+				</div>
+
+				<!-- Pass 3 Jours (Populaire) -->
+				<div
+					class="bg-violet-foncer/30 rounded-2xl p-8 border-2 border-violet relative"
+				>
+					<span
+						class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-3c text-white text-sm px-4 py-1 rounded-full font-bold"
+					>
+						Populaire
+					</span>
+					<h3 class="text-white text-2xl font-bold mb-4">
+						Pass 3 Jours
+					</h3>
+					<div class="text-violet text-5xl font-bold mb-6">150€</div>
+					<ul class="text-gris space-y-3">
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Accès 3 jours complets</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Accès à toutes les scènes</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Parking inclus</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Merch exclusif</span>
+						</li>
+					</ul>
+				</div>
+
+				<!-- Pass VIP -->
+				<div
+					class="bg-violet-foncer/30 rounded-2xl p-8 border border-violet-foncer/30"
+				>
+					<h3 class="text-white text-2xl font-bold mb-4">Pass VIP</h3>
+					<div class="text-violet text-5xl font-bold mb-6">299€</div>
+					<ul class="text-gris space-y-3">
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Tout du Pass 3 Jours</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Zone VIP privée</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Bar privé</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<span class="text-violet mt-1">✓</span>
+							<span>Meet & Greet artistes</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- HEBERGEMENTS -->
+	<section class="py-16 px-4">
+		<div class="max-w-6xl mx-auto">
+			<h2
+				class="text-3xl font-bold mb-12 text-center flex items-center justify-center gap-3"
+			>
+				<img src={iconImuble.src} alt="" class="w-8 h-8" />
+				<span class="bg-gradient-3c bg-clip-text text-transparent"
+					>Hébergements</span
+				>
+			</h2>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+				<!-- Camping Standard -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6">
+					<h3 class="text-white text-xl font-bold mb-3">
+						Camping Standard
+					</h3>
+					<p class="text-gris text-sm mb-4">
+						Emplacements camping pour tente personnelle, accès
+						sanitaires et douches.
+					</p>
+					<div class="text-violet text-2xl font-bold">20€ / nuit</div>
+				</div>
+
+				<!-- Camping Confort -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6">
+					<h3 class="text-white text-xl font-bold mb-3">
+						Camping Confort
+					</h3>
+					<p class="text-gris text-sm mb-4">
+						Emplacements délimités avec accès électricité,
+						sanitaires premium.
+					</p>
+					<div class="text-violet text-2xl font-bold">40€ / nuit</div>
+				</div>
+
+				<!-- Glamping -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6">
+					<h3 class="text-white text-xl font-bold mb-3">Glamping</h3>
+					<p class="text-gris text-sm mb-4">
+						Tentes pré-installées tout confort avec lits,
+						électricité, mobilier.
+					</p>
+					<div class="text-violet text-2xl font-bold">
+						120€ / nuit
+					</div>
+				</div>
+
+				<!-- Hôtels partenaires -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6">
+					<h3 class="text-white text-xl font-bold mb-3">
+						Hôtels partenaires
+					</h3>
+					<p class="text-gris text-sm mb-4">
+						Nous avons négocié des tarifs préférentiels avec
+						plusieurs hôtels de Belfort et Mulhouse.
+					</p>
+					<ul class="text-gris text-xs space-y-2">
+						<li>
+							• Hôtel Le Tonneau d'Or - Belfort (10 km) - à partir
+							de 85€/nuit
+						</li>
+						<li>
+							• Ibis Belfort Centre - Belfort (12 km) - à partir
+							de 75€/nuit
+						</li>
+						<li>
+							• Mercure Mulhouse Centre - Mulhouse (20 km) - à
+							partir de 95€/nuit
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- TRANSPORT & ACCES -->
+	<section class="py-16 px-4 bg-dark-blue">
+		<div class="max-w-6xl mx-auto">
+			<h2
+				class="text-3xl font-bold mb-12 text-center flex items-center justify-center gap-3"
+			>
+				<img src={iconCars.src} alt="" class="w-8 h-8" />
+				<span class="bg-gradient-3c bg-clip-text text-transparent"
+					>Transport & Accès</span
+				>
+			</h2>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+				<!-- En voiture -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6">
+					<div class="flex items-center gap-3 mb-4">
+						<img src={iconCars.src} alt="Voiture" class="w-8 h-8" />
+						<h3 class="text-white text-lg font-bold">En voiture</h3>
+					</div>
+					<ul class="text-gris text-sm space-y-2">
+						<li>• Depuis Belfort : 15 min via D465</li>
+						<li>• Depuis Mulhouse : 25 min via A36</li>
+						<li>• Depuis Paris : 4h30 via A36</li>
+					</ul>
+					<p class="text-gris text-xs mt-4 italic">
+						Parkings gratuits sur place avec navettes vers l'entrée.
+					</p>
+				</div>
+
+				<!-- En train -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6">
+					<div class="flex items-center gap-3 mb-4">
+						<img src={iconTrain.src} alt="Train" class="w-8 h-8" />
+						<h3 class="text-white text-lg font-bold">En train</h3>
+					</div>
+					<ul class="text-gris text-sm space-y-2">
+						<li>• Gare de Belfort-Montbéliard TGV</li>
+						<li>• Paris-Belfort : 2h30</li>
+						<li>• Lyon-Belfort : 3h</li>
+					</ul>
+					<p class="text-gris text-xs mt-4 italic">
+						Navettes gratuites depuis la gare vers le festival.
+					</p>
+				</div>
+
+				<!-- Covoiturage -->
+				<div
+					class="bg-violet-foncer/30 rounded-2xl p-6 border-2 border-violet"
+				>
+					<div class="flex items-center gap-3 mb-4">
+						<img
+							src={iconUserMultiPurple.src}
+							alt=""
+							class="w-8 h-8"
+						/>
+						<h3 class="text-white text-lg font-bold">
+							Covoiturage
+						</h3>
+					</div>
+					<p class="text-gris text-sm mb-3">
+						Parking covoiturage dédié avec places réservées.
+						Utilisez l'application BlaBlaCar avec le code
+						LUMIMIX2025 pour trouver des covoitureurs.
+					</p>
+					<p class="text-violet text-xs font-bold mt-3">
+						Réduction de 10€ sur votre billet si vous arrivez à 4
+						dans un véhicule.
+					</p>
+				</div>
+
+				<!-- Adresse -->
+				<div class="bg-violet-foncer/30 rounded-2xl p-6">
+					<div class="flex items-center gap-3 mb-4">
+						<img
+							src={iconLocate.src}
+							alt="Localisation"
+							class="w-8 h-8"
+						/>
+						<h3 class="text-white text-lg font-bold">
+							Adresse du festival
+						</h3>
+					</div>
+					<p class="text-white font-medium mb-2">
+						Base de loisirs du Malsaucy
+					</p>
+					<p class="text-gris text-sm">90300 Sermamagny, France</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- FAQ -->
+	<section class="py-16 px-4">
+		<div class="max-w-4xl mx-auto">
+			<h2
+				class="text-3xl font-bold mb-12 text-center flex items-center justify-center gap-3"
+			>
+				<img src={iconFAQ.src} alt="" class="w-8 h-8" />
+				<span class="bg-gradient-3c bg-clip-text text-transparent"
+					>FAQ</span
+				>
+			</h2>
+
+			<div class="space-y-4">
+				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
+					<summary
+						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+					>
+						<span>Quelles sont les dates du festival ?</span>
+						<span class="transition-transform group-open:rotate-45"
+							><img
+								src={iconPlus.src}
+								alt=""
+								class="w-5 h-5"
+							/></span
+						>
+					</summary>
+					<p class="text-gris mt-4 text-sm">
+						Le festival Lumimix se déroulera du 18 au 20 juillet
+						2025. Les portes ouvrent à 17h chaque jour et la
+						programmation se termine à 3h du matin.
+					</p>
+				</details>
+
+				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
+					<summary
+						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+					>
+						<span>Où se trouve le festival ?</span>
+						<span class="transition-transform group-open:rotate-45"
+							><img
+								src={iconPlus.src}
+								alt=""
+								class="w-5 h-5"
+							/></span
+						>
+					</summary>
+					<p class="text-gris mt-4 text-sm">
+						Le festival a lieu à la Base de loisirs du Malsaucy,
+						90300 Sermamagny, France. Le site est facilement
+						accessible en voiture, train ou covoiturage avec des
+						navettes gratuites disponibles.
+					</p>
+				</details>
+
+				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
+					<summary
+						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+					>
+						<span>Les billets sont-ils remboursables ?</span>
+						<span class="transition-transform group-open:rotate-45"
+							><img
+								src={iconPlus.src}
+								alt=""
+								class="w-5 h-5"
+							/></span
+						>
+					</summary>
+					<p class="text-gris mt-4 text-sm">
+						Les billets ne sont pas remboursables sauf en cas
+						d'annulation du festival. Toutefois, vous pouvez
+						transférer votre billet à une autre personne via votre
+						compte utilisateur jusqu'à 48h avant l'événement.
+					</p>
+				</details>
+
+				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
+					<summary
+						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+					>
+						<span>Y a-t-il un camping sur place ?</span>
+						<span class="transition-transform group-open:rotate-45"
+							><img
+								src={iconPlus.src}
+								alt=""
+								class="w-5 h-5"
+							/></span
+						>
+					</summary>
+					<p class="text-gris mt-4 text-sm">
+						Oui, nous proposons trois types d'hébergement sur place
+						: Camping Standard (20€/nuit), Camping Confort
+						(40€/nuit) et Glamping (120€/nuit). Tous incluent
+						l'accès aux sanitaires et douches.
+					</p>
+				</details>
+
+				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
+					<summary
+						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+					>
+						<span
+							>Le festival est-il accessible aux personnes à
+							mobilité réduite ?</span
+						>
+						<span class="transition-transform group-open:rotate-45"
+							><img
+								src={iconPlus.src}
+								alt=""
+								class="w-5 h-5"
+							/></span
+						>
+					</summary>
+					<p class="text-gris mt-4 text-sm">
+						Oui, le festival est entièrement accessible aux
+						personnes à mobilité réduite. Des zones dédiées sont
+						prévues devant chaque scène, des sanitaires adaptés sont
+						disponibles et un service d'accompagnement gratuit peut
+						être réservé.
+					</p>
+				</details>
+
+				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
+					<summary
+						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+					>
+						<span
+							>Peut-on apporter de la nourriture et des boissons ?</span
+						>
+						<span class="transition-transform group-open:rotate-45"
+							><img
+								src={iconPlus.src}
+								alt=""
+								class="w-5 h-5"
+							/></span
+						>
+					</summary>
+					<p class="text-gris mt-4 text-sm">
+						La nourriture solide en petite quantité est autorisée
+						(snacks, sandwichs). Les boissons alcoolisées et les
+						contenants en verre sont strictement interdits. De
+						nombreux stands de nourriture et bars sont présents sur
+						le site.
+					</p>
+				</details>
+
+				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
+					<summary
+						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+					>
+						<span>Y a-t-il une limite d'âge ?</span>
+						<span class="transition-transform group-open:rotate-45"
+							><img
+								src={iconPlus.src}
+								alt=""
+								class="w-5 h-5"
+							/></span
+						>
+					</summary>
+					<p class="text-gris mt-4 text-sm">
+						Le festival est ouvert à tous les âges. Les mineurs de
+						moins de 16 ans doivent être accompagnés d'un adulte.
+						Une autorisation parentale est requise pour les 16-18
+						ans non accompagnés.
+					</p>
+				</details>
+
+				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
+					<summary
+						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+					>
+						<span
+							>Quels moyens de paiement sont acceptés sur le
+							festival ?</span
+						>
+						<span class="transition-transform group-open:rotate-45"
+							><img
+								src={iconPlus.src}
+								alt=""
+								class="w-5 h-5"
+							/></span
+						>
+					</summary>
+					<p class="text-gris mt-4 text-sm">
+						Le festival fonctionne avec un système de cashless :
+						rechargez votre bracelet par carte bancaire aux bornes
+						sur place ou via l'application mobile. Les espèces ne
+						sont pas acceptées aux stands.
+					</p>
+				</details>
+			</div>
+		</div>
+	</section>
+</Layout>

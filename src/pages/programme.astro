@@ -1,0 +1,255 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { artistesSorted } from "../../backend/backend.mjs";
+import type { RecordModel } from "pocketbase";
+
+// Images
+import heroImage from "../assets/img/scene_bleu_fond.avif";
+
+// Recuperer les donnees depuis PocketBase
+let artistes: RecordModel[] = [];
+
+try {
+	artistes = await artistesSorted();
+} catch (error) {
+	console.log("[v0] Erreur PocketBase:", error);
+}
+
+// URL de base PocketBase pour les images
+const pbUrl = "http://127.0.0.1:8090";
+
+// Fonction pour obtenir l'URL de l'image
+function getImageUrl(record, field) {
+	if (record && record[field]) {
+		return `${pbUrl}/api/files/${record.collectionId}/${record.id}/${record[field]}`;
+	}
+	return heroImage.src;
+}
+
+// Grouper les artistes par jour
+const jour1 = artistes.filter((a) => {
+	const date = new Date(a.date_representation);
+	return date.getDate() === 18;
+});
+const jour2 = artistes.filter((a) => {
+	const date = new Date(a.date_representation);
+	return date.getDate() === 19;
+});
+const jour3 = artistes.filter((a) => {
+	const date = new Date(a.date_representation);
+	return date.getDate() === 20;
+});
+
+// Formater l'heure
+function formatHeure(dateStr) {
+	const date = new Date(dateStr);
+	return date.toLocaleTimeString("fr-FR", {
+		hour: "2-digit",
+		minute: "2-digit",
+	});
+}
+---
+
+<Layout title="Programme - Lumimix">
+	<!-- HERO -->
+	<section
+		class="relative h-[70vh] flex items-center justify-center -mt-24 pt-32"
+	>
+		<img
+			src={heroImage.src}
+			alt="Festival Lumimix"
+			class="absolute inset-0 w-full h-full object-cover"
+		/>
+		<div class="absolute inset-0 bg-black/60"></div>
+		<div class="relative z-10 text-center px-4">
+			<h1
+				class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Programme
+			</h1>
+			<p class="text-white text-lg md:text-xl">
+				3 nuits de musique électronique avec les meilleurs DJs
+			</p>
+		</div>
+	</section>
+
+	<!-- PROGRAMME PAR JOUR -->
+	<section class="py-16 px-4">
+		<div class="max-w-5xl mx-auto">
+			<!-- JOUR 1 -->
+			<div class="mb-16">
+				<h2 class="text-white text-3xl font-bold mb-8 text-center">
+					<span class="text-violet">Vendredi</span> 18 Juillet
+				</h2>
+
+				{
+					jour1.length > 0 ? (
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+							{jour1.map((artiste) => (
+								<a
+									href={`/artiste/${artiste.id}`}
+									class="bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform"
+								>
+									{artiste.photo_principale ? (
+										<img
+											src={`${pbUrl}/api/files/${artiste.collectionId}/${artiste.id}/${artiste.photo_principale}`}
+											alt={artiste.nom}
+											class="w-full h-48 object-cover"
+										/>
+									) : (
+										<div class="w-full h-48 bg-violet-foncer flex items-center justify-center">
+											<span class="text-gris text-sm">
+												Pas d'image
+											</span>
+										</div>
+									)}
+									<div class="p-4">
+										<h3 class="text-white text-xl font-bold">
+											{artiste.nom}
+										</h3>
+										<p class="text-violet">
+											{formatHeure(
+												artiste.date_representation,
+											)}
+										</p>
+										<p class="text-gris text-sm">
+											{artiste.genre_musical}
+										</p>
+									</div>
+								</a>
+							))}
+						</div>
+					) : (
+						<p class="text-gris text-center">
+							Programmation a venir...
+						</p>
+					)
+				}
+			</div>
+
+			<!-- JOUR 2 -->
+			<div class="mb-16">
+				<h2 class="text-white text-3xl font-bold mb-8 text-center">
+					<span class="text-violet">Samedi</span> 19 Juillet
+				</h2>
+
+				{
+					jour2.length > 0 ? (
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+							{jour2.map((artiste) => (
+								<a
+									href={`/artiste/${artiste.id}`}
+									class="bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform"
+								>
+									{artiste.photo_principale ? (
+										<img
+											src={`${pbUrl}/api/files/${artiste.collectionId}/${artiste.id}/${artiste.photo_principale}`}
+											alt={artiste.nom}
+											class="w-full h-48 object-cover"
+										/>
+									) : (
+										<div class="w-full h-48 bg-violet-foncer flex items-center justify-center">
+											<span class="text-gris text-sm">
+												Pas d'image
+											</span>
+										</div>
+									)}
+									<div class="p-4">
+										<h3 class="text-white text-xl font-bold">
+											{artiste.nom}
+										</h3>
+										<p class="text-violet">
+											{formatHeure(
+												artiste.date_representation,
+											)}
+										</p>
+										<p class="text-gris text-sm">
+											{artiste.genre_musical}
+										</p>
+									</div>
+								</a>
+							))}
+						</div>
+					) : (
+						<p class="text-gris text-center">
+							Programmation a venir...
+						</p>
+					)
+				}
+			</div>
+
+			<!-- JOUR 3 -->
+			<div class="mb-16">
+				<h2 class="text-white text-3xl font-bold mb-8 text-center">
+					<span class="text-violet">Dimanche</span> 20 Juillet
+				</h2>
+
+				{
+					jour3.length > 0 ? (
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+							{jour3.map((artiste) => (
+								<a
+									href={`/artiste/${artiste.id}`}
+									class="bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform"
+								>
+									{artiste.photo_principale ? (
+										<img
+											src={`${pbUrl}/api/files/${artiste.collectionId}/${artiste.id}/${artiste.photo_principale}`}
+											alt={artiste.nom}
+											class="w-full h-48 object-cover"
+										/>
+									) : (
+										<div class="w-full h-48 bg-violet-foncer flex items-center justify-center">
+											<span class="text-gris text-sm">
+												Pas d'image
+											</span>
+										</div>
+									)}
+									<div class="p-4">
+										<h3 class="text-white text-xl font-bold">
+											{artiste.nom}
+										</h3>
+										<p class="text-violet">
+											{formatHeure(
+												artiste.date_representation,
+											)}
+										</p>
+										<p class="text-gris text-sm">
+											{artiste.genre_musical}
+										</p>
+									</div>
+								</a>
+							))}
+						</div>
+					) : (
+						<p class="text-gris text-center">
+							Programmation a venir...
+						</p>
+					)
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA SCENES -->
+	<section class="py-16 px-4 bg-dark-blue">
+		<div class="max-w-4xl mx-auto text-center">
+			<h2
+				class="text-4xl font-bold mb-6 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Découvrez nos scènes
+			</h2>
+			<p class="text-gris text-lg mb-8 max-w-2xl mx-auto">
+				Trois univers sonores distincts pour une expérience immersive :
+				Main Stage avec les plus grands noms de l'électro, Arena pour
+				les sets intimistes et Sunrise pour vibrer jusqu'à l'aube.
+			</p>
+			<a
+				href="/scene"
+				class="inline-block bg-gradient-3c text-white px-8 py-3 rounded-full font-bold hover:opacity-80 transition-opacity"
+			>
+				Voir les scènes
+			</a>
+		</div>
+	</section>
+</Layout>
