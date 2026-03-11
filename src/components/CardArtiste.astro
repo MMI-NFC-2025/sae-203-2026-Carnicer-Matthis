@@ -3,24 +3,19 @@ import type { RecordModel } from "pocketbase";
 
 interface Props {
     artiste: RecordModel;
-    scenes: RecordModel[]; // On passe la liste des scènes pour trouver le nom
+    scenes: RecordModel[];
 }
 
 const { artiste, scenes } = Astro.props;
 
-// --- LOGIQUE DE LA CARTE ---
-
-// 1. Gérer l'image
 const pbUrl = "http://127.0.0.1:8090";
 const imgUrl = artiste.photo_principale
     ? `${pbUrl}/api/files/${artiste.collectionId}/${artiste.id}/${artiste.photo_principale}`
     : "";
 
-// 2. Trouver le nom de la scène
 const sceneMatch = scenes.find((s) => s.id === artiste.scene);
 const sceneName = sceneMatch ? sceneMatch.nom : "Scène inconnue";
 
-// 3. Formater la date et l'heure
 const dateObj = new Date(artiste.date_representation);
 const dateStr = dateObj.toLocaleDateString("fr-FR", {
     weekday: "long",

@@ -2,11 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import { artistesSorted, scenesName } from "../../backend/backend.mjs";
 import type { RecordModel } from "pocketbase";
-
-// Images
 import heroImage from "../assets/img/scene_bleu_fond.avif";
 
-// Recuperer les donnees depuis PocketBase
 let artistes: RecordModel[] = [];
 let scenes: RecordModel[] = [];
 
@@ -17,15 +14,12 @@ try {
 	console.log("[v0] Erreur PocketBase:", error);
 }
 
-// Extraire les genres uniques
 const genresUniques = [...new Set(artistes.map((a) => a.genre_musical))].filter(
 	Boolean,
 );
 
-// URL de base PocketBase pour les images
 const pbUrl = "http://127.0.0.1:8090";
 
-// Fonction pour obtenir l'URL de l'image
 function getImageUrl(record, field) {
 	if (record && record[field]) {
 		return `${pbUrl}/api/files/${record.collectionId}/${record.id}/${record[field]}`;
@@ -33,7 +27,6 @@ function getImageUrl(record, field) {
 	return heroImage.src;
 }
 
-// Grouper les artistes par jour
 const jour1 = artistes.filter((a) => {
 	const date = new Date(a.date_representation);
 	return date.getDate() === 18;
@@ -47,7 +40,6 @@ const jour3 = artistes.filter((a) => {
 	return date.getDate() === 20;
 });
 
-// Formater l'heure
 function formatHeure(dateStr) {
 	const date = new Date(dateStr);
 	return date.toLocaleTimeString("fr-FR", {
@@ -354,12 +346,11 @@ function formatHeure(dateStr) {
 	</section>
 
 	<script>
-		// Variables de filtrage
+		// === SYSTEME DE FILTRAGE ===
 		let jourSelectionne = "tous";
 		let sceneSelectionnee = "toutes";
 		let genreSelectionne = "tous";
 
-		// Fonction pour appliquer les filtres
 		function appliquerFiltres() {
 			const cartes =
 				document.querySelectorAll<HTMLElement>(".artiste-card");
@@ -391,7 +382,6 @@ function formatHeure(dateStr) {
 		}
 
 		function gererAffichageSections() {
-			// Pour chaque section de jour
 			["18", "19", "20"].forEach((jour) => {
 				const section = document.querySelector<HTMLElement>(
 					`[data-section-jour="${jour}"]`,
@@ -410,7 +400,6 @@ function formatHeure(dateStr) {
 			});
 		}
 
-		// Gestion des filtres jour
 		document.querySelectorAll(".filter-btn-jour").forEach((btn) => {
 			btn.addEventListener("click", () => {
 				document.querySelectorAll(".filter-btn-jour").forEach((b) => {
@@ -426,7 +415,6 @@ function formatHeure(dateStr) {
 			});
 		});
 
-		// Gestion des filtres scène
 		document.querySelectorAll(".filter-btn-scene").forEach((btn) => {
 			btn.addEventListener("click", () => {
 				document.querySelectorAll(".filter-btn-scene").forEach((b) => {
@@ -442,7 +430,6 @@ function formatHeure(dateStr) {
 			});
 		});
 
-		// Gestion des filtres genre
 		document.querySelectorAll(".filter-btn-genre").forEach((btn) => {
 			btn.addEventListener("click", () => {
 				document.querySelectorAll(".filter-btn-genre").forEach((b) => {

@@ -1,17 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
-// Images
 import heroImage from "../assets/img/Hero-contact.svg";
-
-// Icones
 import iconMail from "../assets/icons/mail.svg";
 import iconPhone from "../assets/icons/phone.svg";
 import iconLocate from "../assets/icons/locate.svg";
 import iconSend from "../assets/icons/send.svg";
 import iconDownload from "../assets/icons/dowload.svg";
-
-// Icones reseaux sociaux
 import iconYt from "../assets/icons/youtube.svg";
 import iconX from "../assets/icons/x.svg";
 import iconInsta from "../assets/icons/instagram.svg";
@@ -265,13 +259,13 @@ import iconFb from "../assets/icons/facebook.svg";
 	</section>
 
 	<script>
+		// === GESTION DU FORMULAIRE ===
 		const form = document.getElementById("contact-form") as HTMLFormElement;
 		const messageFeedback = document.getElementById("message-feedback");
 
 		form?.addEventListener("submit", async (e) => {
 			e.preventDefault();
 
-			// Récupérer les données du formulaire
 			const formData = new FormData(form);
 			const data = {
 				nom: formData.get("nom") as string,
@@ -281,7 +275,6 @@ import iconFb from "../assets/icons/facebook.svg";
 			};
 
 			try {
-				// Désactiver le bouton pendant l'envoi
 				const submitBtn = form.querySelector(
 					'button[type="submit"]',
 				) as HTMLButtonElement;
@@ -290,7 +283,6 @@ import iconFb from "../assets/icons/facebook.svg";
 					submitBtn.textContent = "Envoi en cours...";
 				}
 
-				// Envoyer les données à l'API
 				const response = await fetch("/api/contact", {
 					method: "POST",
 					headers: {
@@ -301,7 +293,6 @@ import iconFb from "../assets/icons/facebook.svg";
 
 				const result = await response.json();
 
-				// Afficher le message de feedback
 				if (messageFeedback) {
 					messageFeedback.classList.remove("hidden");
 
@@ -317,7 +308,6 @@ import iconFb from "../assets/icons/facebook.svg";
 					}
 				}
 
-				// Réactiver le bouton
 				if (submitBtn) {
 					submitBtn.disabled = false;
 					const iconSend = submitBtn.querySelector("img");
@@ -332,7 +322,6 @@ import iconFb from "../assets/icons/facebook.svg";
 					}
 				}
 
-				// Cacher le message après 5 secondes
 				setTimeout(() => {
 					messageFeedback?.classList.add("hidden");
 				}, 5000);
@@ -340,14 +329,12 @@ import iconFb from "../assets/icons/facebook.svg";
 				console.error("Erreur:", error);
 
 				if (messageFeedback) {
-					messageFeedback.classList.remove("hidden");
 					messageFeedback.className =
 						"mt-4 p-4 rounded-lg text-center bg-red-500/20 text-red-400 border border-red-500";
 					messageFeedback.textContent =
 						"Une erreur est survenue. Veuillez réessayer.";
 				}
 
-				// Réactiver le bouton
 				const submitBtn = form.querySelector(
 					'button[type="submit"]',
 				) as HTMLButtonElement;

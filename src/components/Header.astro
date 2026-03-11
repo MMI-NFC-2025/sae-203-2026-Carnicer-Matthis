@@ -1,10 +1,8 @@
 ---
-// Importation des images/icônes
 import logo from "../assets/icons/logo_lumimix.svg";
 import iconBurger from "../assets/icons/burgermenu.svg";
 import iconClose from "../assets/icons/Fermermenu.svg";
 
-// Définition des liens de navigation (identiques au site Lumimix)
 const navLinks = [
     { name: "Le Festival", url: "/festival" },
     { name: "Programme", url: "/programme" },
@@ -14,7 +12,6 @@ const navLinks = [
     { name: "Contact", url: "/contact" },
 ];
 
-// Détection de la page actuelle
 const currentPath = Astro.url.pathname;
 ---
 
@@ -55,8 +52,8 @@ const currentPath = Astro.url.pathname;
                         href={link.url}
                         class={
                             isActive
-                                ? "text-transparent bg-clip-text bg-[image:var(--background-image-gradient-3c)] transition-all duration-300"
-                                : "text-white hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300"
+                                ? "text-transparent bg-clip-text bg-gradient-3c transition-all duration-300"
+                                : "text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-3c transition-all duration-300"
                         }
                     >
                         {link.name}
@@ -81,8 +78,8 @@ const currentPath = Astro.url.pathname;
                             href={link.url}
                             class={
                                 isActive
-                                    ? "text-transparent bg-clip-text bg-[image:var(--background-image-gradient-3c)] transition-all duration-300 transform translate-y-4 opacity-0 nav-item"
-                                    : "text-white hover:text-transparent hover:bg-clip-text hover:bg-[image:var(--background-image-gradient-3c)] transition-all duration-300 transform translate-y-4 opacity-0 nav-item"
+                                    ? "text-transparent bg-clip-text bg-gradient-3c transition-all duration-300 transform translate-y-4 opacity-0 nav-item"
+                                    : "text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-3c transition-all duration-300 transform translate-y-4 opacity-0 nav-item"
                             }
                         >
                             {link.name}
@@ -105,7 +102,7 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <script>
-    // Script d'interaction pour le menu mobile
+    // === MENU MOBILE ===
     const burgerBtn = document.getElementById("burger-btn");
     const mobileMenu = document.getElementById("mobile-menu");
     const burgerIcon = document.getElementById("burger-icon");
@@ -117,28 +114,24 @@ const currentPath = Astro.url.pathname;
         const isClosed = mobileMenu?.classList.contains("opacity-0");
 
         if (isClosed) {
-            // OUVRE LE MENU
             mobileMenu?.classList.remove("opacity-0", "pointer-events-none");
             burgerIcon?.classList.add("hidden");
             closeIcon?.classList.remove("hidden");
             header?.classList.remove("backdrop-blur-md");
-            document.body.style.overflow = "hidden"; // Coupe le scroll
+            document.body.style.overflow = "hidden";
 
-            // Animation d'apparition des liens
             navItems.forEach((item, index) => {
                 setTimeout(() => {
                     item.classList.remove("translate-y-4", "opacity-0");
                 }, 100 * index);
             });
         } else {
-            // FERME LE MENU
             mobileMenu?.classList.add("opacity-0", "pointer-events-none");
             burgerIcon?.classList.remove("hidden");
             closeIcon?.classList.add("hidden");
             header?.classList.add("backdrop-blur-md");
-            document.body.style.overflow = ""; // Remet le scroll
+            document.body.style.overflow = "";
 
-            // Réinitialise l'animation des liens
             navItems.forEach((item) => {
                 item.classList.add("translate-y-4", "opacity-0");
             });

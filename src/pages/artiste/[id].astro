@@ -9,7 +9,6 @@ let artiste: RecordModel | null = null;
 let error: string | null = null;
 
 try {
-	// On récupère l'artiste (et le backend nous donne la scène avec grâce à l'expand !)
 	artiste = await artisteID(id);
 } catch (e) {
 	error = "Artiste non trouvé";
@@ -34,8 +33,6 @@ function formatTime(dateString: string) {
 }
 
 const pbUrl = "http://127.0.0.1:8090";
-
-// On sécurise l'affichage de la scène
 const sceneName = artiste?.expand?.scene?.nom || "Non définie";
 ---
 

@@ -9,7 +9,6 @@ import {
 import type { RecordModel } from "pocketbase";
 import djFondImage from "../../assets/img/dj_fond.avif";
 
-// Récupération brute des données
 let artistes: RecordModel[] = [];
 let artistesAlpha: RecordModel[] = [];
 let scenes: RecordModel[] = [];
@@ -109,6 +108,7 @@ try {
 	</section>
 
 	<script>
+		// === SYSTEME DE TRI ===
 		const btnTriDate = document.getElementById("tri-date");
 		const btnTriAlpha = document.getElementById("tri-alpha");
 		const grilleDate = document.getElementById(
@@ -124,13 +124,10 @@ try {
 			grilleVisible: HTMLElement,
 			grilleCachee: HTMLElement,
 		) {
-			// Mettre à jour les boutons
 			btnActif.classList.add("active", "bg-violet");
 			btnActif.classList.remove("bg-violet-foncer");
 			btnInactif.classList.remove("active", "bg-violet");
 			btnInactif.classList.add("bg-violet-foncer");
-
-			// Mettre à jour les grilles
 			grilleVisible.style.display = "grid";
 			grilleCachee.style.display = "none";
 		}
