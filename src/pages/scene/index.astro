@@ -1,131 +1,64 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { scenesName } from '../../../backend/backend.mjs';
-import type { RecordModel } from 'pocketbase';
-import sceneRougeFondImage from '../../assets/img/scene_rouge_fond.avif';
-import iconUserMulti from '../../assets/icons/user_multi.svg';
+import Layout from "../../layouts/Layout.astro";
+import CardScene from "../../components/CardScene.astro";
+import { scenesName } from "../../../backend/backend.mjs";
+import type { RecordModel } from "pocketbase";
+import sceneRougeFondImage from "../../assets/img/scene_rouge_fond.avif";
 
-// Recuperer les scenes depuis PocketBase
 let scenes: RecordModel[] = [];
-
 try {
 	scenes = await scenesName();
 } catch (error) {
-	console.error("Erreur lors de la recuperation des scenes:", error);
-}
-
-// URL de base PocketBase pour les images
-const pbUrl = "http://127.0.0.1:8090";
-
-// Mapping des équipements par scène
-const equipementsParScene: Record<string, string[]> = {
-	"Main Stage": ["Système L-Acoustics K1", "Écrans LED 4K", "120 lasers RGB", "Show de drones"],
-	"Reflets Stage": ["Effets aquatiques", "Mapping vidéo", "Hologrammes", "Acteurs vivants"],
-	"Drones Stage": ["300 drones LED", "Effets 3D", "Interaction artistique", "Expérience immersive"]
-};
-
-// Fonction pour obtenir les équipements d'une scène
-function getEquipements(nomScene: string): string[] {
-	return equipementsParScene[nomScene] || [];
+	console.error("Erreur:", error);
 }
 ---
 
-<Layout title="Scenes - Lumimix">
-	
-	<!-- HERO DE PAGE -->
-	<section class="relative h-[70vh] flex items-start justify-center px-4 text-center pt-40">
-		<!-- Image de fond -->
-		<img src={sceneRougeFondImage.src} alt="Scene Background" class="absolute inset-0 w-full h-full object-cover z-0" />
-		<!-- Overlay sombre -->
+<Layout title="Scènes - Lumimix">
+	<section
+		class="relative h-[70vh] flex items-start justify-center px-4 text-center pt-40"
+	>
+		<img
+			src={sceneRougeFondImage.src}
+			alt="Scene Background"
+			class="absolute inset-0 w-full h-full object-cover z-0"
+		/>
 		<div class="absolute inset-0 bg-black/50 z-10"></div>
-		<!-- Contenu -->
 		<div class="relative z-20">
-			<h1 class="text-5xl font-bold mb-4 bg-gradient-3c bg-clip-text text-transparent">Les Scènes</h1>
+			<h1
+				class="text-5xl font-bold mb-4 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Les Scènes
+			</h1>
 			<p class="text-white text-lg max-w-2xl mx-auto">
 				{scenes.length} scènes uniques pour une expérience immersive totale
 			</p>
 		</div>
 	</section>
 
-	<!-- GRILLE DES SCENES -->
 	<section class="pt-16 pb-16 px-4">
-		<div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-			
-			{scenes.map((scene) => (
-			<!-- CARTE SCENE -->
-			<div class="bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform">
-				
-				<!-- Image -->
-				<div class="relative">
-			{scene.photo && scene.photo.length > 0 ? (
-				<img 
-					src={`${pbUrl}/api/files/${scene.collectionId}/${scene.id}/${scene.photo[0]}`}
-				alt={scene.nom}
-				class="w-full h-64 object-cover"
-						/>
-					) : (
-						<div class="w-full h-64 bg-violet-foncer flex items-center justify-center">
-							<span class="text-gris">Pas d'image</span>
-						</div>
-					)}
-				</div>
-				
-				<!-- Infos -->
-				<div class="p-6">
-					<h3 class="text-2xl font-bold mb-3 bg-gradient-3c bg-clip-text text-transparent">{scene.nom}</h3>
-				<p class="text-gris text-sm mb-4">{scene.description}</p>
-				
-				<!-- Capacité avec icône -->
-				<div class="flex items-center gap-2 mb-4">
-					<img src={iconUserMulti.src} alt="Capacité" class="w-5 h-5" />
-					<span class="text-white text-sm font-medium">{scene.capacite} personnes</span>
-				</div>
-					
-					<!-- Equipements (badges) -->
-				{getEquipements(scene.nom).length > 0 && (
-					<div class="flex flex-wrap gap-2 mb-4">
-						{getEquipements(scene.nom).slice(0, 4).map((equipement: string) => (
-							<span class="bg-violet-foncer text-gris text-xs px-3 py-1 rounded-full">
-								{equipement}
-							</span>
-						))}
-					</div>
-				)}
-
-					
-					<!-- Bouton Plus de détails -->
-					<a 
-						href={`/scene/${scene.id}`}
-						class="inline-flex items-center gap-2 text-violet hover:text-white text-sm font-medium transition-colors"
-					>
-						Plus de détails
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-						</svg>
-					</a>
-				</div>
-				
-			</div>
-		))}
-
+		<div
+			class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+		>
+			{scenes.map((scene) => <CardScene scene={scene} />)}
 		</div>
 	</section>
 
-	<!-- MESSAGE SI PAS DE SCENES -->
-	{scenes.length === 0 && (
-		<section class="pb-16 text-center">
-			<p class="text-gris text-lg">Aucune scene trouvee. Verifiez que PocketBase est lance.</p>
-		</section>
-	)}
+	{
+		scenes.length === 0 && (
+			<section class="pb-16 text-center">
+				<p class="text-gris text-lg">
+					Aucune scène trouvée. Vérifiez que PocketBase est lancé.
+				</p>
+			</section>
+		)
+	}
 
-	<!-- BOUTON RETOUR -->
 	<section class="pb-16 text-center">
-		<a 
-			href="/" 
-			class="inline-block border-2 border-violet text-violet px-8 py-3 rounded-full font-bold hover:bg-violet hover:text-white"
+		<a
+			href="/"
+			class="inline-block border-2 border-violet text-violet px-8 py-3 rounded-full font-bold hover:bg-violet hover:text-white transition-colors"
 		>
-			Retour a l'accueil
+			Retour à l'accueil
 		</a>
 	</section>
-
 </Layout>

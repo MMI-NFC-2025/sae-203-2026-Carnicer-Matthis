@@ -1,116 +1,150 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { artistesSorted, scenesName } from '../../../backend/backend.mjs';
-import type { RecordModel } from 'pocketbase';
-import djFondImage from '../../assets/img/dj_fond.avif';
+import Layout from "../../layouts/Layout.astro";
+import CardArtiste from "../../components/CardArtiste.astro";
+import {
+	artistesSorted,
+	artistesName,
+	scenesName,
+} from "../../../backend/backend.mjs";
+import type { RecordModel } from "pocketbase";
+import djFondImage from "../../assets/img/dj_fond.avif";
 
-// Recuperer les artistes depuis PocketBase
+// Récupération brute des données
 let artistes: RecordModel[] = [];
+let artistesAlpha: RecordModel[] = [];
 let scenes: RecordModel[] = [];
-
 try {
 	artistes = await artistesSorted();
+	artistesAlpha = await artistesName();
 	scenes = await scenesName();
 } catch (error) {
-	console.error("Erreur lors de la recuperation des donnees:", error);
+	console.error("Erreur:", error);
 }
-
-// Fonction pour obtenir le nom de la scene
-function getSceneName(sceneId: string) {
-	const scene = scenes.find(s => s.id === sceneId);
-	return scene ? scene.nom : "Scene inconnue";
-}
-
-// Fonction pour formater la date
-function formatDate(dateString: string) {
-	const date = new Date(dateString);
-	const options: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' };
-	return date.toLocaleDateString('fr-FR', options);
-}
-
-// Fonction pour formater l'heure
-function formatTime(dateString: string) {
-	const date = new Date(dateString);
-	return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-}
-
-// URL de base PocketBase pour les images
-const pbUrl = "http://127.0.0.1:8090";
 ---
 
 <Layout title="Artistes - Lumimix">
-	
-	<!-- HEADER DE PAGE -->
-	<section class="relative h-[70vh] flex items-start justify-center px-4 text-center pt-40">
-		<!-- Image de fond -->
-		<img src={djFondImage.src} alt="DJ Background" class="absolute inset-0 w-full h-full object-cover z-0" />
-		<!-- Overlay sombre -->
+	<section
+		class="relative h-[70vh] flex items-start justify-center px-4 text-center pt-40"
+	>
+		<img
+			src={djFondImage.src}
+			alt="DJ Background"
+			class="absolute inset-0 w-full h-full object-cover z-0"
+		/>
 		<div class="absolute inset-0 bg-black/50 z-10"></div>
-		<!-- Contenu -->
 		<div class="relative z-20">
-			<h1 class="text-5xl font-bold mb-4 bg-gradient-3c bg-clip-text text-transparent">Artistes</h1>
+			<h1
+				class="text-5xl font-bold mb-4 bg-gradient-3c bg-clip-text text-transparent"
+			>
+				Artistes
+			</h1>
 			<p class="text-white text-lg max-w-2xl mx-auto">
-				Les plus grands DJs de la scene electronique internationale
+				Les plus grands DJs de la scène électronique internationale
 			</p>
 		</div>
 	</section>
 
-	<!-- GRILLE DES ARTISTES -->
-	<section class="pt-16 pb-16 px-4">
-		<div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-			
-			{artistes.map((artiste) => (
-				<!-- CARTE ARTISTE (cliquable) -->
-				<a href={`/artiste/${artiste.id}`} class="bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform block">
-					
-					<!-- Image -->
-					<div class="relative">
-						{artiste.photo_principale ? (
-							<img 
-								src={`${pbUrl}/api/files/${artiste.collectionId}/${artiste.id}/${artiste.photo_principale}`}
-								alt={artiste.nom} 
-								class="w-full h-48 object-cover"
-							/>
-						) : (
-							<div class="w-full h-48 bg-violet-foncer flex items-center justify-center">
-								<span class="text-gris">Pas d'image</span>
-							</div>
-						)}
-						<!-- Badge genre -->
-						<span class="absolute top-3 left-3 bg-violet text-white text-xs px-3 py-1 rounded-full">
-							{artiste.genre_musical}
-						</span>
-					</div>
-					
-					<!-- Infos -->
-					<div class="p-4">
-						<h3 class="text-white text-xl font-bold mb-2">{artiste.nom}</h3>
-						<p class="text-gris text-sm mb-1">{formatDate(artiste.date_representation)}</p>
-						<p class="text-violet text-sm font-medium">{getSceneName(artiste.scene)}</p>
-						<p class="text-gris text-sm">{formatTime(artiste.date_representation)}</p>
-					</div>
-					
-				</a>
-			))}
-
+	<!-- FILTRES DE TRI -->
+	<section class="py-8 px-4 border-b border-violet/20">
+		<div class="max-w-6xl mx-auto">
+			<h2 class="text-white font-bold text-xl mb-4">Trier par :</h2>
+			<div class="flex flex-wrap gap-2">
+				<button
+					id="tri-date"
+					class="filter-btn active px-6 py-2 rounded-full bg-violet text-white font-bold hover:opacity-80 transition-opacity"
+				>
+					Par date de concert
+				</button>
+				<button
+					id="tri-alpha"
+					class="filter-btn px-6 py-2 rounded-full bg-violet-foncer text-white font-bold hover:bg-violet transition-colors"
+				>
+					Par ordre alphabétique
+				</button>
+			</div>
 		</div>
 	</section>
 
-	<!-- MESSAGE SI PAS D'ARTISTES -->
-	{artistes.length === 0 && (
-		<section class="pb-16 text-center">
-			<p class="text-gris text-lg">Aucun artiste trouve. Verifiez que PocketBase est lance.</p>
-		</section>
-	)}
-
-	<!-- BOUTON RETOUR -->
-	<section class="pb-16 text-center">
-		<a 
-			href="/" 
-			class="inline-block border-2 border-violet text-violet px-8 py-3 rounded-full font-bold hover:bg-violet hover:text-white"
+	<section class="pt-16 pb-16 px-4">
+		<div
+			id="grille-artistes-date"
+			class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
 		>
-			Retour a l'accueil
+			{
+				artistes.map((artiste) => (
+					<CardArtiste artiste={artiste} scenes={scenes} />
+				))
+			}
+		</div>
+		<div
+			id="grille-artistes-alpha"
+			class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+			style="display: none;"
+		>
+			{
+				artistesAlpha.map((artiste) => (
+					<CardArtiste artiste={artiste} scenes={scenes} />
+				))
+			}
+		</div>
+	</section>
+
+	{
+		artistes.length === 0 && (
+			<section class="pb-16 text-center">
+				<p class="text-gris text-lg">
+					Aucun artiste trouvé. Vérifiez que PocketBase est lancé.
+				</p>
+			</section>
+		)
+	}
+
+	<section class="pb-16 text-center">
+		<a
+			href="/"
+			class="inline-block border-2 border-violet text-violet px-8 py-3 rounded-full font-bold hover:bg-violet hover:text-white transition-colors"
+		>
+			Retour à l'accueil
 		</a>
 	</section>
 
+	<script>
+		const btnTriDate = document.getElementById("tri-date");
+		const btnTriAlpha = document.getElementById("tri-alpha");
+		const grilleDate = document.getElementById(
+			"grille-artistes-date",
+		) as HTMLElement;
+		const grilleAlpha = document.getElementById(
+			"grille-artistes-alpha",
+		) as HTMLElement;
+
+		function activerTri(
+			btnActif: HTMLElement,
+			btnInactif: HTMLElement,
+			grilleVisible: HTMLElement,
+			grilleCachee: HTMLElement,
+		) {
+			// Mettre à jour les boutons
+			btnActif.classList.add("active", "bg-violet");
+			btnActif.classList.remove("bg-violet-foncer");
+			btnInactif.classList.remove("active", "bg-violet");
+			btnInactif.classList.add("bg-violet-foncer");
+
+			// Mettre à jour les grilles
+			grilleVisible.style.display = "grid";
+			grilleCachee.style.display = "none";
+		}
+
+		btnTriDate?.addEventListener("click", () => {
+			if (btnTriDate && btnTriAlpha && grilleDate && grilleAlpha) {
+				activerTri(btnTriDate, btnTriAlpha, grilleDate, grilleAlpha);
+			}
+		});
+
+		btnTriAlpha?.addEventListener("click", () => {
+			if (btnTriDate && btnTriAlpha && grilleDate && grilleAlpha) {
+				activerTri(btnTriAlpha, btnTriDate, grilleAlpha, grilleDate);
+			}
+		});
+	</script>
 </Layout>

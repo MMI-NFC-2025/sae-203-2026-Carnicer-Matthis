@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { artistesSorted } from "../../backend/backend.mjs";
+import { artistesSorted, scenesName } from "../../backend/backend.mjs";
 import type { RecordModel } from "pocketbase";
 
 // Images
@@ -8,12 +8,19 @@ import heroImage from "../assets/img/scene_bleu_fond.avif";
 
 // Recuperer les donnees depuis PocketBase
 let artistes: RecordModel[] = [];
+let scenes: RecordModel[] = [];
 
 try {
 	artistes = await artistesSorted();
+	scenes = await scenesName();
 } catch (error) {
 	console.log("[v0] Erreur PocketBase:", error);
 }
+
+// Extraire les genres uniques
+const genresUniques = [...new Set(artistes.map((a) => a.genre_musical))].filter(
+	Boolean,
+);
 
 // URL de base PocketBase pour les images
 const pbUrl = "http://127.0.0.1:8090";
@@ -73,11 +80,95 @@ function formatHeure(dateStr) {
 		</div>
 	</section>
 
+	<!-- FILTRES -->
+	<section class="py-8 px-4 border-b border-violet/20">
+		<div class="max-w-5xl mx-auto">
+			<h2 class="text-white font-bold text-xl mb-4">Filtrer par :</h2>
+
+			<!-- Filtre par jour -->
+			<div class="mb-6">
+				<p class="text-gris text-sm mb-2">Jour</p>
+				<div class="flex flex-wrap gap-2">
+					<button
+						data-filter-jour="tous"
+						class="filter-btn-jour active px-4 py-2 rounded-full bg-violet text-white font-bold hover:opacity-80 transition-opacity"
+					>
+						Tous les jours
+					</button>
+					<button
+						data-filter-jour="18"
+						class="filter-btn-jour px-4 py-2 rounded-full bg-violet-foncer text-white font-bold hover:bg-violet transition-colors"
+					>
+						Vendredi 18
+					</button>
+					<button
+						data-filter-jour="19"
+						class="filter-btn-jour px-4 py-2 rounded-full bg-violet-foncer text-white font-bold hover:bg-violet transition-colors"
+					>
+						Samedi 19
+					</button>
+					<button
+						data-filter-jour="20"
+						class="filter-btn-jour px-4 py-2 rounded-full bg-violet-foncer text-white font-bold hover:bg-violet transition-colors"
+					>
+						Dimanche 20
+					</button>
+				</div>
+			</div>
+
+			<!-- Filtre par scène -->
+			<div class="mb-6">
+				<p class="text-gris text-sm mb-2">Scène</p>
+				<div class="flex flex-wrap gap-2">
+					<button
+						data-filter-scene="toutes"
+						class="filter-btn-scene active px-4 py-2 rounded-full bg-violet text-white font-bold hover:opacity-80 transition-opacity"
+					>
+						Toutes les scènes
+					</button>
+					{
+						scenes.map((scene) => (
+							<button
+								data-filter-scene={scene.id}
+								class="filter-btn-scene px-4 py-2 rounded-full bg-violet-foncer text-white font-bold hover:bg-violet transition-colors"
+							>
+								{scene.nom}
+							</button>
+						))
+					}
+				</div>
+			</div>
+
+			<!-- Filtre par genre -->
+			<div class="mb-6">
+				<p class="text-gris text-sm mb-2">Genre musical</p>
+				<div class="flex flex-wrap gap-2">
+					<button
+						data-filter-genre="tous"
+						class="filter-btn-genre active px-4 py-2 rounded-full bg-violet text-white font-bold hover:opacity-80 transition-opacity"
+					>
+						Tous les genres
+					</button>
+					{
+						genresUniques.map((genre) => (
+							<button
+								data-filter-genre={genre}
+								class="filter-btn-genre px-4 py-2 rounded-full bg-violet-foncer text-white font-bold hover:bg-violet transition-colors"
+							>
+								{genre}
+							</button>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!-- PROGRAMME PAR JOUR -->
 	<section class="py-16 px-4">
 		<div class="max-w-5xl mx-auto">
 			<!-- JOUR 1 -->
-			<div class="mb-16">
+			<div class="mb-16" data-section-jour="18">
 				<h2 class="text-white text-3xl font-bold mb-8 text-center">
 					<span class="text-violet">Vendredi</span> 18 Juillet
 				</h2>
@@ -88,7 +179,10 @@ function formatHeure(dateStr) {
 							{jour1.map((artiste) => (
 								<a
 									href={`/artiste/${artiste.id}`}
-									class="bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform"
+									class="artiste-card bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform"
+									data-jour="18"
+									data-scene={artiste.scene || ""}
+									data-genre={artiste.genre_musical || ""}
 								>
 									{artiste.photo_principale ? (
 										<img
@@ -128,7 +222,7 @@ function formatHeure(dateStr) {
 			</div>
 
 			<!-- JOUR 2 -->
-			<div class="mb-16">
+			<div class="mb-16" data-section-jour="19">
 				<h2 class="text-white text-3xl font-bold mb-8 text-center">
 					<span class="text-violet">Samedi</span> 19 Juillet
 				</h2>
@@ -139,7 +233,10 @@ function formatHeure(dateStr) {
 							{jour2.map((artiste) => (
 								<a
 									href={`/artiste/${artiste.id}`}
-									class="bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform"
+									class="artiste-card bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform"
+									data-jour="19"
+									data-scene={artiste.scene || ""}
+									data-genre={artiste.genre_musical || ""}
 								>
 									{artiste.photo_principale ? (
 										<img
@@ -179,7 +276,7 @@ function formatHeure(dateStr) {
 			</div>
 
 			<!-- JOUR 3 -->
-			<div class="mb-16">
+			<div class="mb-16" data-section-jour="20">
 				<h2 class="text-white text-3xl font-bold mb-8 text-center">
 					<span class="text-violet">Dimanche</span> 20 Juillet
 				</h2>
@@ -190,7 +287,10 @@ function formatHeure(dateStr) {
 							{jour3.map((artiste) => (
 								<a
 									href={`/artiste/${artiste.id}`}
-									class="bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform"
+									class="artiste-card bg-violet-foncer/30 rounded-2xl overflow-hidden hover:scale-105 transition-transform"
+									data-jour="20"
+									data-scene={artiste.scene || ""}
+									data-genre={artiste.genre_musical || ""}
 								>
 									{artiste.photo_principale ? (
 										<img
@@ -252,4 +352,110 @@ function formatHeure(dateStr) {
 			</a>
 		</div>
 	</section>
+
+	<script>
+		// Variables de filtrage
+		let jourSelectionne = "tous";
+		let sceneSelectionnee = "toutes";
+		let genreSelectionne = "tous";
+
+		// Fonction pour appliquer les filtres
+		function appliquerFiltres() {
+			const cartes =
+				document.querySelectorAll<HTMLElement>(".artiste-card");
+			let nombreVisibles = 0;
+
+			cartes.forEach((carte) => {
+				const jour = carte.getAttribute("data-jour");
+				const scene = carte.getAttribute("data-scene");
+				const genre = carte.getAttribute("data-genre");
+
+				const jourMatch =
+					jourSelectionne === "tous" || jour === jourSelectionne;
+				const sceneMatch =
+					sceneSelectionnee === "toutes" ||
+					scene === sceneSelectionnee;
+				const genreMatch =
+					genreSelectionne === "tous" || genre === genreSelectionne;
+
+				if (jourMatch && sceneMatch && genreMatch) {
+					carte.style.display = "";
+					nombreVisibles++;
+				} else {
+					carte.style.display = "none";
+				}
+			});
+
+			// Gérer l'affichage des sections de jours
+			gererAffichageSections();
+		}
+
+		function gererAffichageSections() {
+			// Pour chaque section de jour
+			["18", "19", "20"].forEach((jour) => {
+				const section = document.querySelector<HTMLElement>(
+					`[data-section-jour="${jour}"]`,
+				);
+				if (!section) return;
+
+				const cartesVisibles = section.querySelectorAll(
+					'.artiste-card:not([style*="display: none"])',
+				);
+
+				if (cartesVisibles.length === 0) {
+					section.style.display = "none";
+				} else {
+					section.style.display = "";
+				}
+			});
+		}
+
+		// Gestion des filtres jour
+		document.querySelectorAll(".filter-btn-jour").forEach((btn) => {
+			btn.addEventListener("click", () => {
+				document.querySelectorAll(".filter-btn-jour").forEach((b) => {
+					b.classList.remove("active", "bg-violet");
+					b.classList.add("bg-violet-foncer");
+				});
+				btn.classList.add("active", "bg-violet");
+				btn.classList.remove("bg-violet-foncer");
+
+				jourSelectionne =
+					btn.getAttribute("data-filter-jour") || "tous";
+				appliquerFiltres();
+			});
+		});
+
+		// Gestion des filtres scène
+		document.querySelectorAll(".filter-btn-scene").forEach((btn) => {
+			btn.addEventListener("click", () => {
+				document.querySelectorAll(".filter-btn-scene").forEach((b) => {
+					b.classList.remove("active", "bg-violet");
+					b.classList.add("bg-violet-foncer");
+				});
+				btn.classList.add("active", "bg-violet");
+				btn.classList.remove("bg-violet-foncer");
+
+				sceneSelectionnee =
+					btn.getAttribute("data-filter-scene") || "toutes";
+				appliquerFiltres();
+			});
+		});
+
+		// Gestion des filtres genre
+		document.querySelectorAll(".filter-btn-genre").forEach((btn) => {
+			btn.addEventListener("click", () => {
+				document.querySelectorAll(".filter-btn-genre").forEach((b) => {
+					b.classList.remove("active", "bg-violet");
+					b.classList.add("bg-violet-foncer");
+				});
+				btn.classList.add("active", "bg-violet");
+				btn.classList.remove("bg-violet-foncer");
+
+				genreSelectionne =
+					btn.getAttribute("data-filter-genre") || "tous";
+				appliquerFiltres();
+			});
+		});
+	</script>
 </Layout>

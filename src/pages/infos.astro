@@ -321,183 +321,338 @@ import iconPlus from "../assets/icons/+.svg";
 			</h2>
 
 			<div class="space-y-4">
-				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
-					<summary
-						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+				<div
+					class="faq-item bg-violet-foncer/30 rounded-xl overflow-hidden"
+				>
+					<button
+						class="faq-button w-full text-left p-6 text-white font-bold cursor-pointer flex items-center justify-between hover:bg-violet-foncer/20 transition-colors"
 					>
 						<span>Quelles sont les dates du festival ?</span>
-						<span class="transition-transform group-open:rotate-45"
+						<span class="faq-icon transition-transform duration-300"
 							><img
 								src={iconPlus.src}
 								alt=""
 								class="w-5 h-5"
 							/></span
 						>
-					</summary>
-					<p class="text-gris mt-4 text-sm">
-						Le festival Lumimix se déroulera du 18 au 20 juillet
-						2025. Les portes ouvrent à 17h chaque jour et la
-						programmation se termine à 3h du matin.
-					</p>
-				</details>
+					</button>
+					<div
+						class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+					>
+						<div
+							class="faq-inner px-6 pb-6 transform -translate-y-2.5 opacity-0 transition-all duration-500"
+						>
+							<p class="text-gris text-sm">
+								Le festival Lumimix se déroulera du 18 au 20
+								juillet 2025. Les portes ouvrent à 17h chaque
+								jour et la programmation se termine à 3h du
+								matin.
+							</p>
+						</div>
+					</div>
+				</div>
 
-				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
-					<summary
-						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+				<div
+					class="faq-item bg-violet-foncer/30 rounded-xl overflow-hidden"
+				>
+					<button
+						class="faq-button w-full text-left p-6 text-white font-bold cursor-pointer flex items-center justify-between hover:bg-violet-foncer/20 transition-colors"
 					>
 						<span>Où se trouve le festival ?</span>
-						<span class="transition-transform group-open:rotate-45"
+						<span class="faq-icon transition-transform duration-300"
 							><img
 								src={iconPlus.src}
 								alt=""
 								class="w-5 h-5"
 							/></span
 						>
-					</summary>
-					<p class="text-gris mt-4 text-sm">
-						Le festival a lieu à la Base de loisirs du Malsaucy,
-						90300 Sermamagny, France. Le site est facilement
-						accessible en voiture, train ou covoiturage avec des
-						navettes gratuites disponibles.
-					</p>
-				</details>
+					</button>
+					<div
+						class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+					>
+						<div
+							class="faq-inner px-6 pb-6 transform -translate-y-2.5 opacity-0 transition-all duration-500"
+						>
+							<p class="text-gris text-sm">
+								Le festival a lieu à la Base de loisirs du
+								Malsaucy, 90300 Sermamagny, France. Le site est
+								facilement accessible en voiture, train ou
+								covoiturage avec des navettes gratuites
+								disponibles.
+							</p>
+						</div>
+					</div>
+				</div>
 
-				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
-					<summary
-						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+				<div
+					class="faq-item bg-violet-foncer/30 rounded-xl overflow-hidden"
+				>
+					<button
+						class="faq-button w-full text-left p-6 text-white font-bold cursor-pointer flex items-center justify-between hover:bg-violet-foncer/20 transition-colors"
 					>
 						<span>Les billets sont-ils remboursables ?</span>
-						<span class="transition-transform group-open:rotate-45"
+						<span class="faq-icon transition-transform duration-300"
 							><img
 								src={iconPlus.src}
 								alt=""
 								class="w-5 h-5"
 							/></span
 						>
-					</summary>
-					<p class="text-gris mt-4 text-sm">
-						Les billets ne sont pas remboursables sauf en cas
-						d'annulation du festival. Toutefois, vous pouvez
-						transférer votre billet à une autre personne via votre
-						compte utilisateur jusqu'à 48h avant l'événement.
-					</p>
-				</details>
+					</button>
+					<div
+						class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+					>
+						<div
+							class="faq-inner px-6 pb-6 transform -translate-y-2.5 opacity-0 transition-all duration-500"
+						>
+							<p class="text-gris text-sm">
+								Les billets ne sont pas remboursables sauf en
+								cas d'annulation du festival. Toutefois, vous
+								pouvez transférer votre billet à une autre
+								personne via votre compte utilisateur jusqu'à
+								48h avant l'événement.
+							</p>
+						</div>
+					</div>
+				</div>
 
-				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
-					<summary
-						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+				<div
+					class="faq-item bg-violet-foncer/30 rounded-xl overflow-hidden"
+				>
+					<button
+						class="faq-button w-full text-left p-6 text-white font-bold cursor-pointer flex items-center justify-between hover:bg-violet-foncer/20 transition-colors"
 					>
 						<span>Y a-t-il un camping sur place ?</span>
-						<span class="transition-transform group-open:rotate-45"
+						<span class="faq-icon transition-transform duration-300"
 							><img
 								src={iconPlus.src}
 								alt=""
 								class="w-5 h-5"
 							/></span
 						>
-					</summary>
-					<p class="text-gris mt-4 text-sm">
-						Oui, nous proposons trois types d'hébergement sur place
-						: Camping Standard (20€/nuit), Camping Confort
-						(40€/nuit) et Glamping (120€/nuit). Tous incluent
-						l'accès aux sanitaires et douches.
-					</p>
-				</details>
+					</button>
+					<div
+						class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+					>
+						<div
+							class="faq-inner px-6 pb-6 transform -translate-y-2.5 opacity-0 transition-all duration-500"
+						>
+							<p class="text-gris text-sm">
+								Oui, nous proposons trois types d'hébergement
+								sur place : Camping Standard (20€/nuit), Camping
+								Confort (40€/nuit) et Glamping (120€/nuit). Tous
+								incluent l'accès aux sanitaires et douches.
+							</p>
+						</div>
+					</div>
+				</div>
 
-				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
-					<summary
-						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+				<div
+					class="faq-item bg-violet-foncer/30 rounded-xl overflow-hidden"
+				>
+					<button
+						class="faq-button w-full text-left p-6 text-white font-bold cursor-pointer flex items-center justify-between hover:bg-violet-foncer/20 transition-colors"
 					>
 						<span
 							>Le festival est-il accessible aux personnes à
 							mobilité réduite ?</span
 						>
-						<span class="transition-transform group-open:rotate-45"
+						<span class="faq-icon transition-transform duration-300"
 							><img
 								src={iconPlus.src}
 								alt=""
 								class="w-5 h-5"
 							/></span
 						>
-					</summary>
-					<p class="text-gris mt-4 text-sm">
-						Oui, le festival est entièrement accessible aux
-						personnes à mobilité réduite. Des zones dédiées sont
-						prévues devant chaque scène, des sanitaires adaptés sont
-						disponibles et un service d'accompagnement gratuit peut
-						être réservé.
-					</p>
-				</details>
+					</button>
+					<div
+						class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+					>
+						<div
+							class="faq-inner px-6 pb-6 transform -translate-y-2.5 opacity-0 transition-all duration-500"
+						>
+							<p class="text-gris text-sm">
+								Oui, le festival est entièrement accessible aux
+								personnes à mobilité réduite. Des zones dédiées
+								sont prévues devant chaque scène, des sanitaires
+								adaptés sont disponibles et un service
+								d'accompagnement gratuit peut être réservé.
+							</p>
+						</div>
+					</div>
+				</div>
 
-				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
-					<summary
-						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+				<div
+					class="faq-item bg-violet-foncer/30 rounded-xl overflow-hidden"
+				>
+					<button
+						class="faq-button w-full text-left p-6 text-white font-bold cursor-pointer flex items-center justify-between hover:bg-violet-foncer/20 transition-colors"
 					>
 						<span
 							>Peut-on apporter de la nourriture et des boissons ?</span
 						>
-						<span class="transition-transform group-open:rotate-45"
+						<span class="faq-icon transition-transform duration-300"
 							><img
 								src={iconPlus.src}
 								alt=""
 								class="w-5 h-5"
 							/></span
 						>
-					</summary>
-					<p class="text-gris mt-4 text-sm">
-						La nourriture solide en petite quantité est autorisée
-						(snacks, sandwichs). Les boissons alcoolisées et les
-						contenants en verre sont strictement interdits. De
-						nombreux stands de nourriture et bars sont présents sur
-						le site.
-					</p>
-				</details>
+					</button>
+					<div
+						class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+					>
+						<div
+							class="faq-inner px-6 pb-6 transform -translate-y-2.5 opacity-0 transition-all duration-500"
+						>
+							<p class="text-gris text-sm">
+								La nourriture solide en petite quantité est
+								autorisée (snacks, sandwichs). Les boissons
+								alcoolisées et les contenants en verre sont
+								strictement interdits. De nombreux stands de
+								nourriture et bars sont présents sur le site.
+							</p>
+						</div>
+					</div>
+				</div>
 
-				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
-					<summary
-						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+				<div
+					class="faq-item bg-violet-foncer/30 rounded-xl overflow-hidden"
+				>
+					<button
+						class="faq-button w-full text-left p-6 text-white font-bold cursor-pointer flex items-center justify-between hover:bg-violet-foncer/20 transition-colors"
 					>
 						<span>Y a-t-il une limite d'âge ?</span>
-						<span class="transition-transform group-open:rotate-45"
+						<span class="faq-icon transition-transform duration-300"
 							><img
 								src={iconPlus.src}
 								alt=""
 								class="w-5 h-5"
 							/></span
 						>
-					</summary>
-					<p class="text-gris mt-4 text-sm">
-						Le festival est ouvert à tous les âges. Les mineurs de
-						moins de 16 ans doivent être accompagnés d'un adulte.
-						Une autorisation parentale est requise pour les 16-18
-						ans non accompagnés.
-					</p>
-				</details>
+					</button>
+					<div
+						class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+					>
+						<div
+							class="faq-inner px-6 pb-6 transform -translate-y-2.5 opacity-0 transition-all duration-500"
+						>
+							<p class="text-gris text-sm">
+								Le festival est ouvert à tous les âges. Les
+								mineurs de moins de 16 ans doivent être
+								accompagnés d'un adulte. Une autorisation
+								parentale est requise pour les 16-18 ans non
+								accompagnés.
+							</p>
+						</div>
+					</div>
+				</div>
 
-				<details class="bg-violet-foncer/30 rounded-xl p-6 group">
-					<summary
-						class="text-white font-bold cursor-pointer list-none flex items-center justify-between"
+				<div
+					class="faq-item bg-violet-foncer/30 rounded-xl overflow-hidden"
+				>
+					<button
+						class="faq-button w-full text-left p-6 text-white font-bold cursor-pointer flex items-center justify-between hover:bg-violet-foncer/20 transition-colors"
 					>
 						<span
 							>Quels moyens de paiement sont acceptés sur le
 							festival ?</span
 						>
-						<span class="transition-transform group-open:rotate-45"
+						<span class="faq-icon transition-transform duration-300"
 							><img
 								src={iconPlus.src}
 								alt=""
 								class="w-5 h-5"
 							/></span
 						>
-					</summary>
-					<p class="text-gris mt-4 text-sm">
-						Le festival fonctionne avec un système de cashless :
-						rechargez votre bracelet par carte bancaire aux bornes
-						sur place ou via l'application mobile. Les espèces ne
-						sont pas acceptées aux stands.
-					</p>
-				</details>
+					</button>
+					<div
+						class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+					>
+						<div
+							class="faq-inner px-6 pb-6 transform -translate-y-2.5 opacity-0 transition-all duration-500"
+						>
+							<p class="text-gris text-sm">
+								Le festival fonctionne avec un système de
+								cashless : rechargez votre bracelet par carte
+								bancaire aux bornes sur place ou via
+								l'application mobile. Les espèces ne sont pas
+								acceptées aux stands.
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
+
+	<script>
+		const faqButtons = document.querySelectorAll(".faq-button");
+
+		faqButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const faqItem = button.closest(".faq-item");
+				const faqContent = faqItem?.querySelector(
+					".faq-content",
+				) as HTMLElement;
+				const faqInner = faqItem?.querySelector(
+					".faq-inner",
+				) as HTMLElement;
+				const faqIcon = button.querySelector(".faq-icon");
+				const isOpen = faqContent?.classList.contains("open");
+
+				// Fermer toutes les autres FAQ
+				document.querySelectorAll(".faq-item").forEach((item) => {
+					if (item !== faqItem) {
+						const content = item.querySelector(
+							".faq-content",
+						) as HTMLElement;
+						const inner = item.querySelector(
+							".faq-inner",
+						) as HTMLElement;
+						const icon = item.querySelector(".faq-icon");
+
+						if (content?.classList.contains("open")) {
+							content.classList.remove("open");
+							content.style.maxHeight = "0";
+							inner?.classList.remove(
+								"translate-y-0",
+								"opacity-100",
+							);
+							inner?.classList.add(
+								"-translate-y-2.5",
+								"opacity-0",
+							);
+							icon?.classList.remove("rotate-45");
+						}
+					}
+				});
+
+				// Toggle la FAQ actuelle
+				if (isOpen) {
+					// Fermer
+					faqContent.classList.remove("open");
+					faqContent.style.maxHeight = "0";
+					faqInner.classList.remove("translate-y-0", "opacity-100");
+					faqInner.classList.add("-translate-y-2.5", "opacity-0");
+					faqIcon?.classList.remove("rotate-45");
+				} else {
+					// Ouvrir
+					faqContent.classList.add("open");
+					faqContent.style.maxHeight = faqInner.scrollHeight + "px";
+
+					// Attendre un peu pour l'animation translate
+					setTimeout(() => {
+						faqInner.classList.remove(
+							"-translate-y-2.5",
+							"opacity-0",
+						);
+						faqInner.classList.add("translate-y-0", "opacity-100");
+					}, 100);
+
+					faqIcon?.classList.add("rotate-45");
+				}
+			});
+		});
+	</script>
 </Layout>

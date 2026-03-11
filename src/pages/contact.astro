@@ -53,11 +53,16 @@ import iconFb from "../assets/icons/facebook.svg";
 				Envoyez-nous un message
 			</h2>
 
-			<form class="flex flex-col gap-4 mt-8">
+			<!-- Message de feedback -->
+			<div
+				id="message-feedback"
+				class="hidden mt-4 p-4 rounded-lg text-center"
+			>
+			</div>
+
+			<form id="contact-form" class="flex flex-col gap-4 mt-8">
 				<div>
-					<label for="nom" class="text-white block mb-2"
-						>Nom complet</label
-					>
+					<label for="nom" class="text-white block mb-2">Nom</label>
 					<input
 						type="text"
 						id="nom"
@@ -258,4 +263,99 @@ import iconFb from "../assets/icons/facebook.svg";
 			</div>
 		</div>
 	</section>
+
+	<script>
+		const form = document.getElementById("contact-form") as HTMLFormElement;
+		const messageFeedback = document.getElementById("message-feedback");
+
+		form?.addEventListener("submit", async (e) => {
+			e.preventDefault();
+
+			// Récupérer les données du formulaire
+			const formData = new FormData(form);
+			const data = {
+				nom: formData.get("nom") as string,
+				email: formData.get("email") as string,
+				sujet: formData.get("sujet") as string,
+				message: formData.get("message") as string,
+			};
+
+			try {
+				// Désactiver le bouton pendant l'envoi
+				const submitBtn = form.querySelector(
+					'button[type="submit"]',
+				) as HTMLButtonElement;
+				if (submitBtn) {
+					submitBtn.disabled = true;
+					submitBtn.textContent = "Envoi en cours...";
+				}
+
+				// Envoyer les données à l'API
+				const response = await fetch("/api/contact", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(data),
+				});
+
+				const result = await response.json();
+
+				// Afficher le message de feedback
+				if (messageFeedback) {
+					messageFeedback.classList.remove("hidden");
+
+					if (result.success) {
+						messageFeedback.className =
+							"mt-4 p-4 rounded-lg text-center bg-green-500/20 text-green-400 border border-green-500";
+						messageFeedback.textContent = result.message;
+						form.reset();
+					} else {
+						messageFeedback.className =
+							"mt-4 p-4 rounded-lg text-center bg-red-500/20 text-red-400 border border-red-500";
+						messageFeedback.textContent = result.message;
+					}
+				}
+
+				// Réactiver le bouton
+				if (submitBtn) {
+					submitBtn.disabled = false;
+					const iconSend = submitBtn.querySelector("img");
+					if (iconSend) {
+						submitBtn.innerHTML = "";
+						submitBtn.appendChild(iconSend);
+						submitBtn.appendChild(
+							document.createTextNode("Envoyer le message"),
+						);
+					} else {
+						submitBtn.textContent = "Envoyer le message";
+					}
+				}
+
+				// Cacher le message après 5 secondes
+				setTimeout(() => {
+					messageFeedback?.classList.add("hidden");
+				}, 5000);
+			} catch (error) {
+				console.error("Erreur:", error);
+
+				if (messageFeedback) {
+					messageFeedback.classList.remove("hidden");
+					messageFeedback.className =
+						"mt-4 p-4 rounded-lg text-center bg-red-500/20 text-red-400 border border-red-500";
+					messageFeedback.textContent =
+						"Une erreur est survenue. Veuillez réessayer.";
+				}
+
+				// Réactiver le bouton
+				const submitBtn = form.querySelector(
+					'button[type="submit"]',
+				) as HTMLButtonElement;
+				if (submitBtn) {
+					submitBtn.disabled = false;
+					submitBtn.textContent = "Envoyer le message";
+				}
+			}
+		});
+	</script>
 </Layout>

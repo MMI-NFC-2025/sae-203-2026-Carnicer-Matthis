@@ -17,7 +17,9 @@ export async function artistesName() {
 }
 
 export async function artisteID(id) {
-    const record = await pb.collection('artiste').getOne(id);
+    const record = await pb.collection('artiste').getOne(id, {
+        expand: 'scene'
+    });
     return record;
 }
 
