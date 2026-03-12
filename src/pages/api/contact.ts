@@ -17,7 +17,7 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         // Connexion à PocketBase
-        const pb = new PocketBase('http://127.0.0.1:8090');
+        const pb = new PocketBase('https://lumimix.carnicer.fr:443');
 
         // Création de l'enregistrement dans la collection contact
         const record = await pb.collection('contact').create({

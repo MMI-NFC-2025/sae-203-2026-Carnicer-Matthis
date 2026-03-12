@@ -8,7 +8,7 @@ interface Props {
 
 const { artiste, scenes } = Astro.props;
 
-const pbUrl = "http://127.0.0.1:8090";
+const pbUrl = "https://lumimix.carnicer.fr:443";
 const imgUrl = artiste.photo_principale
     ? `${pbUrl}/api/files/${artiste.collectionId}/${artiste.id}/${artiste.photo_principale}`
     : "";

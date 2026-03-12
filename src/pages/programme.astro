@@ -18,7 +18,7 @@ const genresUniques = [...new Set(artistes.map((a) => a.genre_musical))].filter(
 	Boolean,
 );
 
-const pbUrl = "http://127.0.0.1:8090";
+const pbUrl = "https://lumimix.carnicer.fr:443";
 
 function getImageUrl(record, field) {
 	if (record && record[field]) {
